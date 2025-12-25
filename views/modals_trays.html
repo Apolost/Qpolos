@@ -1,0 +1,91 @@
+<div id="tray-settings-modal" class="modal">
+    <div class="modal-content modal-fullscreen">
+        <div class="modal-header">
+            <h2 class="modal-title">Nastavení misek</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body box-settings-body">
+            <!-- Left Column: Assignments -->
+            <div class="box-settings-column-assignments">
+                <div class="card" style="margin-bottom: 0; height: 100%; display: flex; flex-direction: column;">
+                    <div class="card-header"><h3 class="card-title">Přiřazení misek k produktům a zákazníkům</h3></div>
+                    <div class="card-content" style="flex-grow: 1; overflow-y: auto;">
+                        <div class="accordion" id="tray-assignments-accordion"></div>
+                    </div>
+                    <div class="modal-footer" style="margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                         <button class="btn btn-primary" data-action="save-tray-assignments"><i data-feather="save"></i> Uložit přiřazení</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Column: Tray Type Management -->
+            <div class="box-settings-column-management">
+                 <div class="card" style="margin-bottom: 0; height: 100%; display: flex; flex-direction: column;">
+                    <div class="card-header"><h3 class="card-title">Správa typů misek</h3></div>
+                    <div class="card-content" style="flex-grow: 1; display: flex; flex-direction: column; overflow: hidden;">
+                        <form id="tray-type-form" style="margin-bottom: 20px;">
+                            <input type="hidden" id="tray-type-id">
+                            <div class="form-group">
+                                <label for="tray-type-name">Název misky</label>
+                                <input type="text" id="tray-type-name" required>
+                            </div>
+                            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                                <button type="button" class="btn btn-secondary" id="cancel-edit-tray-type-btn" data-action="cancel-edit-tray-type" style="display: none;">Zrušit</button>
+                                <button type="button" class="btn btn-primary" id="save-tray-type-btn" data-action="save-tray-type"><i data-feather="plus"></i> Přidat misku</button>
+                            </div>
+                        </form>
+                        <div style="flex-grow: 1; overflow-y: auto;">
+                            <table class="data-table" id="tray-types-table">
+                                <thead><tr><th>Název</th><th class="actions">Akce</th></tr></thead>
+                                <tbody id="tray-types-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- NEW: Tray Stock Modal -->
+<div id="tray-stock-modal" class="modal">
+    <div class="modal-content modal-fullscreen">
+        <div class="modal-header">
+            <h2 class="modal-title">Sklad misek</h2>
+            <div>
+                <button class="btn btn-secondary" data-action="open-tray-pallet-settings-modal"><i data-feather="settings"></i> Nastavení palet</button>
+                <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div class="modal-body" id="tray-stock-modal-body">
+            <!-- JS will render stock table here -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zavřít</button>
+            <button class="btn btn-primary" data-action="save-tray-stock"><i data-feather="save"></i> Uložit stav skladu</button>
+        </div>
+    </div>
+</div>
+
+<!-- NEW: Tray Pallet Settings Modal -->
+<div id="tray-pallet-settings-modal" class="modal" style="z-index: 1010;">
+    <div class="modal-content" style="max-width: 500px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Nastavení palet misek</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="tray-pallet-settings-type">Typ misky</label>
+                <select id="tray-pallet-settings-type"></select>
+            </div>
+            <div class="form-group">
+                <label for="tray-pallet-settings-count">Počet kusů na paletě</label>
+                <input type="number" id="tray-pallet-settings-count" min="0">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-tray-pallet-settings">Uložit nastavení</button>
+        </div>
+    </div>
+</div>

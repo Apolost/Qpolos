@@ -1,0 +1,472 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="rizky-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Kalkulace Řízků</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <h4>Vstupní údaje (Objednávka na <span id="rizky-date"></span>)</h4>
+            <p><strong>Potřeba řízků z objednávek:</strong> <span id="rizky-total-orders">...</span> kg</p>
+            <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;">
+            <h4>Manuální vstupy & Nastavení</h4>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="rizky-stock">Skladem (kg)</label>
+                    <input type="number" id="rizky-stock">
+                </div>
+                <div class="form-field">
+                    <label for="rizky-prepad">Přepad (kg)</label>
+                    <input type="number" id="rizky-prepad">
+                </div>
+                 <div class="form-field">
+                    <label for="rizky-mastna">Mastná (kg)</label>
+                    <input type="number" id="rizky-mastna">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="rizky-line-performance">Výkon linky (kg/hod)</label>
+                    <input type="number" id="rizky-line-performance">
+                </div>
+                 <div class="form-field">
+                    <label for="rizky-start-time">Start linky (čas)</label>
+                    <input type="time" id="rizky-start-time">
+                </div>
+            </div>
+            <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;">
+            <h4>Výsledky kalkulace</h4>
+            <p><strong>Celková potřeba výroby:</strong> <span id="rizky-total-needed" style="font-weight: bold; font-size: 1.1em;">...</span> kg</p>
+            <p><strong>Potřebný čas linky:</strong> <span id="rizky-runtime">...</span></p>
+            <p><strong>Předpokládaný konec výroby:</strong> <span id="rizky-end-time" style="font-weight: bold; color: var(--accent-primary);">...</span></p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="open-rizky-order-list"><i data-feather="list"></i>Seznam objednávek</button>
+            <button class="btn btn-success" data-action="open-rizky-add-order-modal"><i data-feather="plus"></i>Přidat objednávku</button>
+            <button class="btn btn-primary" data-action="close-modal">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<!-- NEW SIMPLIFIED RIZKY MODAL -->
+<div id="rizky-quick-calc-modal" class="modal">
+    <div class="modal-content" style="max-width: 450px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Kalkulace výroby Řízků</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div style="margin-bottom: 20px; text-align: center;">
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">Celková potřeba (Objednávky - Sklad)</p>
+                <h3 id="rizky-quick-total-needed" style="font-size: 2rem; font-weight: bold; color: var(--accent-primary);">0 kg</h3>
+            </div>
+            
+            <div class="form-group">
+                <label for="rizky-quick-line-performance">Výkon linky (kg/hod)</label>
+                <input type="number" id="rizky-quick-line-performance" class="form-input" style="font-size: 1.2rem; text-align: center;">
+            </div>
+
+            <div style="background-color: var(--bg-tertiary); padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px;">
+                <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 5px;">Potřebný čas linky</p>
+                <strong id="rizky-quick-runtime" style="font-size: 1.5rem; color: var(--text-primary);">0 hod 0 min</strong>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-action="close-modal">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<div id="rizky-order-list-modal" class="modal" style="z-index: 1010;">
+    <div class="modal-content" style="max-width: 600px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Seznam objednávek řízků</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table" id="rizky-order-list-table">
+                <thead>
+                    <tr>
+                        <th>Zákazník</th>
+                        <th>Typ</th>
+                        <th style="text-align: right;">Počet beden</th>
+                        <th style="text-align: right;">Celkem kg</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr style="font-weight: bold; background-color: var(--bg-tertiary);">
+                        <td colspan="2">Celkem</td>
+                        <td id="rizky-list-total-boxes" style="text-align: right;">0</td>
+                        <td id="rizky-list-total-kg" style="text-align: right;">0 kg</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<div id="kfc-staff-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Kalkulace pracovní síly (KFC)</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <p><strong>Celkový čas výroby (1 osoba):</strong> <span id="kfc-staff-total-time"></span></p>
+            <p><strong>Potřeba lidí (pro dokončení do 24:00):</strong> <span id="kfc-staff-needed" style="font-weight: bold; font-size: 1.1em;">...</span></p>
+            <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;">
+            <div class="form-group">
+                <label for="kfc-staff-added">Přidat zaměstnanců (k 1 základu)</label>
+                <input type="number" id="kfc-staff-added" min="0">
+            </div>
+            <h4>Výsledky</h4>
+            <p><strong>Nový čas dokončení:</strong> <span id="kfc-new-completion-time" style="font-weight: bold; color: var(--accent-primary);">...</span></p>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" id="save-kfc-staff-btn" data-action="save-kfc-staff">Uložit</button>
+        </div>
+    </div>
+</div>
+
+<div id="maykawa-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Maykawa Kalkulace Steaku</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <h4>Vstupní údaje (Objednávka na <span id="maykawa-date"></span>)</h4>
+            <p><strong>Potřeba steaku celkem:</strong> <span id="maykawa-steak-needed">...</span> kg</p>
+            <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;">
+            <h4>Nastavení výtěžnosti a výkonu (ze stehen)</h4>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="maykawa-bone-percent">Ztráta kostí (%)</label>
+                    <input type="number" id="maykawa-bone-percent" min="0" max="100">
+                </div>
+                <div class="form-field">
+                    <label for="maykawa-skin-percent">Ztráta kůže (%)</label>
+                    <input type="number" id="maykawa-skin-percent" min="0" max="100">
+                </div>
+                <div class="form-field">
+                    <label>Výtěžnost steaku (%)</label>
+                    <input type="number" id="maykawa-yield-percent" readonly style="background-color: var(--bg-tertiary);">
+                </div>
+            </div>
+             <div class="form-row">
+                <div class="form-field">
+                    <label for="maykawa-deboning-speed">Rychlost koštění (kg/hod)</label>
+                    <input type="number" id="maykawa-deboning-speed" min="0">
+                </div>
+            </div>
+             <p id="maykawa-total-percent-warning" style="color: var(--accent-danger); font-weight: bold; display: none;">Součet procent musí být 100%.</p>
+            <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;">
+            <h4>Výsledky kalkulace</h4>
+            <p><strong>Potřeba stehen celkem:</strong> <span id="maykawa-thighs-needed-kg" style="font-weight: bold; font-size: 1.1em;">...</span> kg</p>
+            <p><strong>Potřebný čas na vykostění:</strong> <span id="maykawa-needed-time" style="font-weight: bold; color: var(--accent-primary);">...</span></p>
+            <p><strong>Potřeba stehen (palety):</strong> <span id="maykawa-thighs-needed-pallets">...</span></p>
+            <p><strong>Vyprodukováno kostí:</strong> <span id="maykawa-bones-produced">...</span> kg</p>
+            <p><strong>Vyprodukováno kůže:</strong> <span id="maykawa-skin-produced">...</span> kg</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="open-maykawa-order-list"><i data-feather="list"></i>Seznam objednávek</button>
+            <button class="btn btn-success" data-action="open-maykawa-add-order-modal"><i data-feather="plus"></i>Přidat objednávku</button>
+            <button class="btn btn-primary" data-action="close-modal">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<div id="maykawa-order-list-modal" class="modal" style="z-index: 1010;">
+    <div class="modal-content" style="max-width: 600px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Seznam objednávek steaku</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table" id="maykawa-order-list-table">
+                <thead>
+                    <tr>
+                        <th>Zákazník</th>
+                        <th>Typ</th>
+                        <th style="text-align: right;">Počet beden</th>
+                        <th style="text-align: right;">Celkem kg</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr style="font-weight: bold; background-color: var(--bg-tertiary);">
+                        <td colspan="2">Celkem</td>
+                        <td id="maykawa-list-total-boxes" style="text-align: right;">0</td>
+                        <td id="maykawa-list-total-kg" style="text-align: right;">0 kg</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<div id="calculator-add-item-modal" class="modal">
+    <div class="modal-content" style="max-width: 600px;">
+        <div class="modal-header">
+            <h2 class="modal-title" id="calculator-add-item-modal-title">Přidat položku do kalkulace</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="calculator-item-surovina">Surovina</label>
+                    <select id="calculator-item-surovina"></select>
+                </div>
+                <div class="form-field">
+                    <label for="calculator-item-type">Typ balení</label>
+                    <select id="calculator-item-type">
+                         <option value="">-- Vyberte --</option>
+                         <option value="OA">Malé misky (OA)</option>
+                         <option value="RB">Rodinné balení (RB)</option>
+                         <option value="VL">Volně ložené (VL)</option>
+                    </select>
+                </div>
+            </div>
+            <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;">
+            <div id="calculator-customer-inputs">
+                <p>Nejprve vyberte surovinu a typ balení.</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" id="save-calculator-item-btn" data-action="save-calculator-item">Uložit položku</button>
+        </div>
+    </div>
+</div>
+
+<div id="chicken-count-modal" class="modal">
+    <div class="modal-content" style="max-width: 700px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Denní naskladnění kuřat</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="chicken-start-time">Začátek linky</label>
+                    <input type="time" id="chicken-start-time" value="06:00">
+                </div>
+                <div class="form-field">
+                    <label>Zpoždění (kuchání, chlazení)</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="number" id="chicken-delay-hours" placeholder="hod" min="0" style="width: 70px;">
+                        <span>:</span>
+                        <input type="number" id="chicken-delay-minutes" placeholder="min" min="0" max="59" style="width: 70px;">
+                    </div>
+                </div>
+            </div>
+            <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;">
+            <div id="chicken-flocks-container">
+                <!-- JS generated content -->
+            </div>
+            <button class="btn btn-secondary" data-action="add-chicken-flock" style="margin-top: 10px;"><i data-feather="plus"></i>Přidat další chov</button>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-chicken-count">Uložit</button>
+        </div>
+    </div>
+</div>
+
+<div id="pause-modal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Zadat pauzu</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="pause-start-time">Čas začátku pauzy (konec za 30 min)</label>
+                <input type="time" id="pause-start-time">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-pause">Uložit pauzu</button>
+        </div>
+    </div>
+</div>
+
+<div id="breakdown-modal" class="modal">
+    <div class="modal-content" style="max-width: 450px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Zadat poruchu</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="breakdown-start-time">Čas začátku poruchy</label>
+                    <input type="time" id="breakdown-start-time">
+                </div>
+                <div class="form-field">
+                    <label for="breakdown-duration">Doba trvání (minuty)</label>
+                    <input type="number" id="breakdown-duration" min="1">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-breakdown">Uložit poruchu</button>
+        </div>
+    </div>
+</div>
+
+<div id="batch-reduction-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Ubírka kuřat</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body" id="batch-reduction-modal-body">
+            <!-- JS Generated Content -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-batch-reduction">Uložit změny</button>
+        </div>
+    </div>
+</div>
+
+<div id="surovina-overview-modal" class="modal">
+    <div class="modal-content" style="max-width: 900px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Celkový přehled surovin</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body" id="surovina-overview-body">
+            <!-- JS generated table -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zavřít</button>
+            <button class="btn btn-primary" data-action="transfer-stock-to-tomorrow">
+                <i data-feather="arrow-right-circle"></i>Převést zbytek do zítřka
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="production-actions-modal" class="modal">
+    <div class="modal-content" style="max-width: 450px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Možnosti výroby</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body production-actions-stack">
+            <button class="btn btn-primary" data-action="go-to-view" data-view-target="kfc"><i data-feather="box"></i>KFC</button>
+            <button class="btn btn-primary" data-action="open-spizy-modal"><i data-feather="cpu"></i>Plán Špízů</button>
+            <button class="btn btn-primary" data-action="open-rizky-modal"><i data-feather="scissors"></i>Kalkulace Řízků</button>
+            <button class="btn btn-primary" data-action="open-maykawa-modal"><i data-feather="codepen"></i>Kalkulace Steaku</button>
+            <button class="btn btn-primary" data-action="open-minced-meat-modal"><i data-feather="grid"></i>Mleté maso</button>
+            <button class="btn btn-primary" data-action="open-wings-modal"><i data-feather="clipboard"></i>Kalkulace Křídel</button>
+            <button class="btn btn-primary" data-action="open-frozen-main-modal"><i data-feather="wind"></i>Mražená výroba</button>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<div id="temp-weight-modal" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+        <div class="modal-header">
+            <h2 class="modal-title" id="temp-weight-modal-title">Dočasná úprava váhy</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div id="temp-weight-summary" class="card" style="padding: 15px; margin-bottom: 20px;">
+                <!-- JS generated summary -->
+            </div>
+            <div id="temp-weight-items-container">
+                <!-- JS generated table -->
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="apply-suggested-weight">Použít navrhovanou váhu</button>
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-temp-weights">Uložit dočasné změny</button>
+        </div>
+    </div>
+</div>
+
+<div id="wings-modal" class="modal">
+    <div class="modal-content" style="max-width: 90vw;">
+        <div class="modal-header">
+            <h2 class="modal-title">Kalkulace Křídel - Sestavení palet na den <span id="wings-date"></span></h2>
+            <div>
+                 <button class="btn btn-secondary" data-action="export-wings-pdf"><i data-feather="file-text"></i>Export PDF</button>
+                 <button class="btn btn-secondary" data-action="open-wings-settings-modal"><i data-feather="settings"></i>Nastavení</button>
+                 <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div class="modal-body" id="wings-production-table-container">
+            <!-- JS generated content -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-action="close-modal">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<div id="wings-settings-modal" class="modal" style="z-index: 1010;">
+    <div class="modal-content" style="max-width: 500px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Nastavení balení křídel</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="wings-settings-customer">Zákazník</label>
+                <select id="wings-settings-customer"></select>
+            </div>
+            <div class="form-group">
+                <label for="wings-settings-packaging-type">Typ balení (pro info)</label>
+                <select id="wings-settings-packaging-type">
+                    <option value="OA">Malé misky (OA)</option>
+                    <option value="RB">Rodinné balení (RB)</option>
+                    <option value="VL">Volně ložené (VL)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="wings-settings-trays-per-order-box">Misek v bedně na objednávku (ks)</label>
+                <input type="number" id="wings-settings-trays-per-order-box" min="1">
+            </div>
+            <div class="form-group">
+                <label for="wings-settings-trays-per-box">Misek v přepravní bedně (ks)</label>
+                <input type="number" id="wings-settings-trays-per-box" min="1">
+            </div>
+            <div class="form-group">
+                <label for="wings-settings-boxes-per-pallet">Beden na paletě (ks)</label>
+                <input type="number" id="wings-settings-boxes-per-pallet" min="1">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-wings-settings">Uložit nastavení</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

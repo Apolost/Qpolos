@@ -1,0 +1,144 @@
+
+<div id="view-main-page">
+    <div class="page-header-container">
+        <div style="width: 100%; display: flex; flex-wrap: wrap; gap: 8px;">
+            <button class="btn btn-primary" style="flex: 1; min-width: 160px;" data-action="add-main-order"><i data-feather="plus"></i>Přidat objednávku</button>
+            <button class="btn btn-primary" style="flex: 1; min-width: 160px;" data-action="open-chicken-count-modal"><i data-feather="plus-circle"></i>Denní naskladnění kuřat</button>
+            <button class="btn btn-secondary" id="main-page-vyroba-btn" style="flex: 0 0 auto; width: 130px;" data-action="open-production-modal"><i data-feather="tool"></i>Výroba</button>
+            <button class="btn btn-primary" style="flex: 1; min-width: 160px;" data-action="open-surovina-source-modal"><i data-feather="truck"></i>Přidat surovinu</button>
+            <button class="btn btn-primary" style="flex: 1; min-width: 160px;" data-action="open-pre-production-modal"><i data-feather="calendar"></i>Předvýroba</button>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-content">
+            <div id="main-page-kfc-quick-entry"></div>
+            <div id="main-page-spizy-quick-entry"></div>
+            <div id="main-page-stabilization-info" style="margin-bottom: 20px;">
+                <!-- JS-injected content -->
+            </div>
+            <div id="main-page-alerts">
+                <!-- Alerts rendered here by JS -->
+            </div>
+            <div id="main-page-overtime-alert">
+                <!-- Chicken overtime alert rendered here by JS -->
+            </div>
+            <div id="main-page-order-reception-alerts">
+                <!-- Order reception alerts will be rendered here -->
+            </div>
+            <div id="main-page-pre-production-status" style="margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                <!-- Pre-production status rendered here by JS -->
+            </div>
+            <div id="main-page-yield-surplus">
+                <!-- Yield surplus info rendered here by JS -->
+            </div>
+            <!-- New Marinade Section -->
+            <div id="main-page-marinades">
+                <!-- Marinade needs rendered by JS -->
+            </div>
+        </div>
+    </div>
+    
+    <div id="main-page-quick-entry">
+        <!-- Quick entry cards rendered by JS -->
+    </div>
+    
+    <div class="card">
+        <div class="accordion">
+            <details id="main-page-overview-container" open>
+                <summary>
+                    <span class="card-title">Přehled objednávek</span>
+                    <span class="order-badge"></span>
+                    <i data-feather="chevron-right" class="arrow-icon"></i>
+                </summary>
+                <div class="details-content accordion nested-accordion">
+
+                    <details id="main-page-marinade-overview-container">
+                        <summary>
+                            Marináda
+                            <span class="order-badge"></span>
+                            <i data-feather="chevron-right" class="arrow-icon"></i>
+                        </summary>
+                        <div class="details-content" id="main-page-marinade-overview"></div>
+                    </details>
+
+                    <details id="main-page-spizy-container">
+                        <summary>
+                            Špízy
+                            <span class="order-badge"></span>
+                            <i data-feather="chevron-right" class="arrow-icon"></i>
+                        </summary>
+                        <div class="details-content" id="main-page-spizy"></div>
+                    </details>
+
+                    <details id="main-page-rizky-container">
+                        <summary>
+                            Řízky
+                            <span class="order-badge"></span>
+                            <i data-feather="chevron-right" class="arrow-icon"></i>
+                        </summary>
+                        <div class="details-content" id="main-page-rizky"></div>
+                    </details>
+                    
+                    <details id="main-page-minced-meat-container">
+                        <summary>
+                            Mleté maso
+                            <span class="order-badge"></span>
+                            <i data-feather="chevron-right" class="arrow-icon"></i>
+                        </summary>
+                        <div class="details-content" id="main-page-minced-meat"></div>
+                    </details>
+
+                    <details id="main-page-prsa-container">
+                        <summary>
+                            Prsa
+                            <span class="order-badge"></span>
+                            <i data-feather="chevron-right" class="arrow-icon"></i>
+                        </summary>
+                        <div class="details-content" id="main-page-prsa"></div>
+                    </details>
+
+                    <details id="main-page-steak-container">
+                        <summary>
+                            Steak
+                            <span class="order-badge"></span>
+                            <i data-feather="chevron-right" class="arrow-icon"></i>
+                        </summary>
+                        <div class="details-content" id="main-page-steak"></div>
+                    </details>
+                    
+                    <details id="main-page-horni-spodni-container">
+                        <summary>
+                            Horní / Spodní
+                            <span class="order-badge"></span>
+                            <i data-feather="chevron-right" class="arrow-icon"></i>
+                        </summary>
+                        <div class="details-content">
+                            <div id="main-page-horni-stehna"></div>
+                            <div id="main-page-spodni-stehna" style="margin-top: 20px;"></div>
+                        </div>
+                    </details>
+
+                    <details id="main-page-stehna-container">
+                        <summary>
+                            Stehna
+                            <span class="order-badge"></span>
+                            <i data-feather="chevron-right" class="arrow-icon"></i>
+                        </summary>
+                        <div class="details-content" id="main-page-stehna"></div>
+                    </details>
+                    
+                    <details id="main-page-ctvrtky-container">
+                        <summary>
+                            Čtvrtky
+                            <span class="order-badge"></span>
+                            <i data-feather="chevron-right" class="arrow-icon"></i>
+                        </summary>
+                        <div class="details-content" id="main-page-ctvrtky"></div>
+                    </details>
+
+                </div>
+            </details>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,316 @@
+<div id="rizky-add-order-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Přidat objednávku řízků na <span id="rizky-add-order-date"></span></h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body" id="rizky-add-order-modal-body">
+            <!-- JS generated content -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-rizky-orders">Uložit objednávky</button>
+        </div>
+    </div>
+</div>
+
+<div id="spizy-ingredient-order-modal" class="modal">
+     <div class="modal-content" style="max-width: 500px;">
+         <div class="modal-header">
+            <h2 class="modal-title" id="spizy-ingredient-order-modal-title">Objednat surovinu</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+             <div class="form-group">
+                <label for="spizy-ingredient-order-date">Datum doručení</label>
+                <input type="date" id="spizy-ingredient-order-date">
+            </div>
+             <div class="form-group">
+                <label for="spizy-ingredient-order-klobasa">Klobása (kg)</label>
+                <input type="number" id="spizy-ingredient-order-klobasa" min="0">
+            </div>
+            <div class="form-group">
+                <label for="spizy-ingredient-order-spek">Špek (kg)</label>
+                <input type="number" id="spizy-ingredient-order-spek" min="0">
+            </div>
+            <div class="form-group">
+                <label for="spizy-ingredient-order-cibule">Cibule (kg)</label>
+                <input type="number" id="spizy-ingredient-order-cibule" min="0">
+            </div>
+            <div class="form-group">
+                <label for="spizy-ingredient-order-paprika">Paprika (kg)</label>
+                <input type="number" id="spizy-ingredient-order-paprika" min="0">
+            </div>
+        </div>
+         <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" id="save-spizy-ingredient-order-btn" data-action="save-spizy-ingredient-order">Uložit objednávku</button>
+        </div>
+    </div>
+</div>
+
+<div id="spizy-add-order-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+         <div class="modal-header">
+            <h2 class="modal-title" id="spizy-add-order-modal-title">Přidat objednávku špízů</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="spizy-order-customer">Zákazník</label>
+                <select id="spizy-order-customer"></select>
+            </div>
+            <div class="form-group">
+                <label for="spizy-order-klobasa">Špíz Klobása (beden)</label>
+                <input type="number" id="spizy-order-klobasa" min="0">
+            </div>
+             <div class="form-group">
+                <label for="spizy-order-spek">Špíz Špek (beden)</label>
+                <input type="number" id="spizy-order-spek" min="0">
+            </div>
+             <div class="form-group">
+                <label for="spizy-order-cilli">Špíz Čilli Mango (beden)</label>
+                <input type="number" id="spizy-order-cilli" min="0">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" id="save-spizy-order-btn" data-action="save-spizy-order">Uložit</button>
+        </div>
+    </div>
+</div>
+
+<div id="spizy-stock-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+         <div class="modal-header">
+            <h2 class="modal-title">Sklad surovin pro špízy</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="spizy-stock-klobasa">Klobása (kg)</label>
+                <input type="number" id="spizy-stock-klobasa" min="0">
+            </div>
+            <div class="form-group">
+                <label for="spizy-stock-spek">Špek (kg)</label>
+                <input type="number" id="spizy-stock-spek" min="0">
+            </div>
+            <div class="form-group">
+                <label for="spizy-stock-steak">Steak (kg)</label>
+                <input type="number" id="spizy-stock-steak" min="0">
+            </div>
+            <div class="form-group">
+                <label for="spizy-stock-cibule">Cibule (kg)</label>
+                <input type="number" id="spizy-stock-cibule" min="0">
+            </div>
+            <div class="form-group">
+                <label for="spizy-stock-paprika">Paprika (kg) - *zatím nevyužito*</label>
+                <input type="number" id="spizy-stock-paprika" min="0">
+            </div>
+        </div>
+         <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" id="save-spizy-stock-btn" data-action="save-spizy-stock">Uložit</button>
+        </div>
+    </div>
+</div>
+
+<div id="spizy-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Plán Špízů na <span id="spizy-modal-date"></span></h2>
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                 <button class="btn btn-secondary" data-action="open-spizy-stock-modal"><i data-feather="archive"></i>Sklad</button>
+                 <button class="btn btn-secondary" data-action="open-spizy-ingredient-order-modal"><i data-feather="truck"></i>Objednat surovinu</button>
+                 <button class="btn btn-primary" data-action="open-spizy-add-order-modal"><i data-feather="plus"></i>Přidat objednávku</button>
+                 <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div class="modal-body" id="spizy-modal-body">
+            <!-- Content generated by JS -->
+        </div>
+    </div>
+</div>
+
+<div id="kfc-stock-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Sklad KFC Surovin</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table" id="kfc-stock-table">
+                <thead><tr><th>Surovina</th><th>Skladem (beden)</th><th>Váha bedny (g)</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" id="save-kfc-stock-btn" data-action="save-kfc-stock">Uložit</button>
+        </div>
+    </div>
+</div>
+
+<div id="kfc-add-order-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Přidat KFC Objednávku na den <span id="kfc-order-date"></span></h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+             <table class="data-table" id="kfc-add-order-table">
+                <thead><tr><th>Produkt</th><th>Dnes (beden)</th><th>Zítra (beden)</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" id="save-kfc-order-btn" data-action="save-kfc-order">Uložit objednávku</button>
+        </div>
+    </div>
+</div>
+
+<div id="maykawa-add-order-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Přidat objednávku steaku na <span id="maykawa-add-order-date"></span></h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body" id="maykawa-add-order-modal-body">
+            <!-- JS generated content -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-maykawa-orders">Uložit objednávky</button>
+        </div>
+    </div>
+</div>
+
+<div id="add-main-order-modal" class="modal">
+    <div class="modal-content" style="max-width: 550px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Přidat rychlou objednávku</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="main-order-customer">Zákazník</label>
+                <select id="main-order-customer"></select>
+            </div>
+            <div class="form-group" id="main-order-type-group" style="display: none;">
+                <label for="main-order-type">Typ balení</label>
+                <select id="main-order-type">
+                    <option value="">-- Vyberte --</option>
+                    <option value="OA">Malé misky (OA)</option>
+                    <option value="RB">Rodinné balení (RB)</option>
+                    <option value="VL">Volně ložené (VL)</option>
+                </select>
+            </div>
+            <div id="main-order-products-container">
+                <p>Nejprve vyberte zákazníka a typ balení.</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" id="save-main-order-btn" data-action="save-main-order">Uložit objednávku</button>
+        </div>
+    </div>
+</div>
+
+<div id="add-order-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="add-order-modal-title">Přidat položky do objednávky</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body" id="add-order-modal-body"></div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" id="save-added-items-btn" data-action="save-added-items">Přidat do objednávky</button>
+        </div>
+    </div>
+</div>
+
+<div id="pre-production-modal" class="modal">
+    <div class="modal-content" style="max-width: 90vw; height: 90vh; display: flex; flex-direction: column;">
+        <div class="modal-header">
+            <h2 class="modal-title">Předvýroba - Plánované akce</h2>
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <div class="btn-group">
+                    <button class="btn btn-secondary" data-action="set-pre-production-days" data-days="2">2 dny</button>
+                    <button class="btn btn-secondary active" data-action="set-pre-production-days" data-days="5">5 dnů</button>
+                    <button class="btn btn-secondary" data-action="set-pre-production-days" data-days="10">10 dnů</button>
+                </div>
+                <button class="btn btn-primary" data-action="open-add-pre-production-modal"><i data-feather="plus"></i>Zadat předvýrobu</button>
+                <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="card-content" id="pre-production-body">
+                <!-- JS generated content -->
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<div id="add-pre-production-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+        <div class="modal-header">
+            <h2 class="modal-title" id="add-pre-production-modal-title">Zadat předvýrobu</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="direct-pre-prod-customer">Zákazník</label>
+                <select id="direct-pre-prod-customer"></select>
+            </div>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="direct-pre-prod-surovina">Surovina</label>
+                    <select id="direct-pre-prod-surovina"></select>
+                </div>
+                <div class="form-field">
+                    <label for="direct-pre-prod-type">Typ balení</label>
+                    <select id="direct-pre-prod-type">
+                        <option value="OA">Malé misky (OA)</option>
+                        <option value="RB">Rodinné balení (RB)</option>
+                        <option value="VL">Volně ložené (VL)</option>
+                    </select>
+                </div>
+            </div>
+             <div class="form-row">
+                <div class="form-field">
+                    <label for="direct-pre-prod-boxes">Počet beden</label>
+                    <input type="number" id="direct-pre-prod-boxes" min="1">
+                </div>
+                <div class="form-field">
+                    <label for="direct-pre-prod-date">Datum výroby</label>
+                    <input type="date" id="direct-pre-prod-date">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-direct-pre-production">Uložit</button>
+        </div>
+    </div>
+</div>
+
+<div id="quick-order-modal" class="modal">
+    <div class="modal-content" style="max-width: 90vw; height: 90vh; display: flex; flex-direction: column;">
+        <div class="modal-header">
+            <h2 class="modal-title">Rychlá objednávka pro <span id="quick-order-customer-name"></span></h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body" id="quick-order-table-container">
+            <!-- JS generated table -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-quick-order">Uložit objednávku</button>
+        </div>
+    </div>
+</div>

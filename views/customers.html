@@ -1,0 +1,28 @@
+<div id="view-customers">
+    <h1 class="page-header" id="customer-form-header">Přidat nového zákazníka</h1>
+    <div class="card">
+        <div class="form-row">
+            <div class="form-field" style="flex-grow: 3;">
+                <label for="customer-name">Název zákazníka</label>
+                <input type="text" id="customer-name" placeholder="např. Globus">
+            </div>
+            <div class="form-field">
+                 <button class="btn btn-secondary" id="cancel-edit-customer-btn" data-action="cancel-edit-customer" style="display: none; margin-right: 10px;">Zrušit úpravu</button>
+                <button class="btn btn-primary" id="save-customer-btn" data-action="save-customer"><i data-feather="save"></i>Uložit zákazníka</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><h2 class="card-title">Existující zákazníci</h2></div>
+        <div class="card-content">
+            <table class="data-table" id="customers-table">
+                <thead><tr><th>Název zákazníka</th><th>Příjem objednávky</th><th class="actions">Akce</th></tr></thead>
+                <tbody id="customers-table-body"></tbody>
+            </table>
+        </div>
+        <div style="text-align: right; margin-top: 20px;">
+            <button class="btn btn-primary" data-action="save-all-customers"><i data-feather="save"></i>Uložit všechny změny</button>
+        </div>
+    </div>
+</div>

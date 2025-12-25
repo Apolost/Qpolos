@@ -1,0 +1,116 @@
+
+/* Buttons */
+.btn {
+    padding: 10px 18px; border: 1px solid transparent; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; line-height: 1.5; width: 100%;
+}
+.btn-icon, .btn-group .btn, .actions .btn, .modal-footer .btn, .nav-footer .form-group .btn, .page-header-container > div > .btn { width: auto; }
+.btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.btn:active { transform: translateY(0); box-shadow: none; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-primary { background-color: var(--accent-primary); color: white; }
+.btn-primary:hover:not(:disabled) { background-color: var(--accent-primary-hover); }
+.btn-success { background-color: var(--accent-success); color: white; }
+.btn-success:hover:not(:disabled) { background-color: var(--accent-success-hover); }
+.btn-danger { background-color: var(--accent-danger); color: white; }
+.btn-danger:hover:not(:disabled) { background-color: var(--accent-danger-hover); }
+.btn-secondary { background-color: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); }
+.btn-secondary:hover:not(:disabled) { background-color: var(--bg-tertiary); }
+.btn-icon { background: none; border: none; cursor: pointer; padding: 6px; border-radius: 9999px; display: flex; align-items: center; justify-content: center; transition: background-color 0.2s; }
+.btn-icon:hover:not(:disabled) { background-color: var(--bg-tertiary); }
+.btn-icon:disabled { opacity: 0.3; cursor: not-allowed; }
+.btn-icon svg { width: 20px; height: 20px; color: var(--text-secondary); }
+.btn-icon:hover:not(:disabled) svg { color: var(--text-primary); }
+.btn-icon.danger:hover:not(:disabled) svg { color: var(--accent-danger); }
+
+.btn-group { display: inline-flex; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); }
+.btn-group .btn { border-radius: 0; border: none; border-right: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-secondary); padding: 8px 16px; font-weight: 500; font-size: 0.85rem; }
+.btn-group .btn:last-child { border-right: none; }
+.btn-group .btn:hover { background-color: var(--bg-tertiary); transform: none; box-shadow: none; }
+.btn-group .btn.active { background-color: var(--accent-primary); color: white; font-weight: 600; }
+
+/* Cards */
+.card { background-color: var(--bg-secondary); border-radius: 16px; box-shadow: var(--shadow); padding: 24px; margin-bottom: 32px; border: 1px solid var(--border-color); }
+.card.done { background-color: color-mix(in srgb, var(--accent-success) 8%, transparent); border-color: color-mix(in srgb, var(--accent-success) 40%, transparent); }
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+.card-title { font-size: 1.25rem; font-weight: 600; }
+.card .card-content, .card-content, .details-content { overflow-x: auto; }
+
+/* Forms */
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-secondary); }
+input, select, textarea { width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary); border-radius: 8px; font-size: 1rem; font-family: var(--font-family); transition: border-color 0.2s, box-shadow 0.2s; }
+textarea { resize: vertical; min-height: 100px; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-primary) 25%, transparent); }
+.form-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; margin-bottom: 20px; }
+.form-field { flex: 1; min-width: 150px; }
+.checkbox-group { display: flex; gap: 24px; align-items: center; }
+.checkbox-group label { display: flex; align-items: center; gap: 8px; margin-bottom: 0; font-weight: 500; font-size: 1rem; color: var(--text-primary); }
+.checkbox-group input[type="checkbox"] { width: auto; height: 18px; width: 18px; }
+
+/* Data Tables */
+.data-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.95rem; }
+.data-table th, .data-table td { padding: 14px 10px; text-align: left; border-bottom: 1px solid var(--border-color); }
+.data-table th { font-weight: 600; font-size: 0.8rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 0.5px; background-color: var(--bg-tertiary); }
+.data-table tr:first-child th:first-child { border-top-left-radius: 8px; }
+.data-table tr:first-child th:last-child { border-top-right-radius: 8px; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:last-child td:first-child { border-bottom-left-radius: 8px; }
+.data-table tr:last-child td:last-child { border-bottom-right-radius: 8px; }
+.data-table tbody tr:hover { background-color: var(--bg-tertiary); }
+.data-table .actions { text-align: right; white-space: nowrap; }
+.data-table .order-item-inactive { opacity: 0.5; }
+.data-table tr.done { background-color: color-mix(in srgb, var(--accent-success) 10%, transparent); }
+.data-table tr.done:hover { background-color: color-mix(in srgb, var(--accent-success) 18%, transparent); }
+.shortage { color: var(--accent-danger); font-weight: 700; }
+.surplus { color: var(--accent-success); font-weight: 700; }
+.product-inactive { opacity: 0.4; }
+
+/* Accordion */
+.accordion details { border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; }
+.accordion details:not(:last-of-type) { margin-bottom: 10px; }
+.accordion summary { padding: 16px 20px; font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; background-color: var(--bg-secondary); transition: background-color 0.2s; }
+.accordion summary:hover { background-color: var(--bg-tertiary); }
+.accordion summary::-webkit-details-marker { display: none; }
+.accordion summary .arrow-icon { transition: transform 0.2s; }
+.accordion details[open] summary .arrow-icon { transform: rotate(90deg); }
+.accordion details[open] summary { border-bottom: 1px solid var(--border-color); background-color: var(--bg-tertiary); }
+.accordion .details-content { padding: 20px; background-color: var(--bg-primary); }
+.accordion summary .order-badge { margin-left: auto; margin-right: 15px; background-color: var(--accent-danger); color: white; font-size: 0.8rem; font-weight: 700; padding: 3px 9px; border-radius: 12px; min-width: 26px; text-align: center; line-height: 1; }
+.accordion summary .order-badge:empty { display: none; }
+/* Nested Accordion Styles */
+.accordion.nested-accordion { padding: 0; }
+.accordion.nested-accordion details { border: none; border-radius: 0; border-bottom: 1px solid var(--border-color); }
+.accordion.nested-accordion details:last-child { border-bottom: none; }
+.accordion.nested-accordion summary { background-color: transparent; padding: 14px 10px; font-size: 1rem; }
+.accordion.nested-accordion details[open] summary { background-color: var(--bg-tertiary); }
+.accordion.nested-accordion .details-content { padding: 15px 5px; background-color: transparent; }
+
+/* Modals */
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
+.modal.active { display: flex; animation: modalFadeIn 0.3s; }
+@keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-content { background: var(--bg-secondary); padding: 32px; border-radius: 16px; box-shadow: var(--shadow-lg); width: 95vw; max-width: 900px; animation: modalScaleIn 0.3s forwards; transform-origin: center; }
+@keyframes modalScaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.modal-title { font-size: 1.5rem; font-weight: 700; }
+.modal-body { max-height: 75vh; overflow-y: auto; padding-right: 15px; }
+.modal-footer { display: flex; justify-content: flex-end; gap: 12px; margin-top: 32px; flex-wrap: wrap;}
+.modal-content.modal-fullscreen { width: 95vw; max-width: 1800px; height: 90vh; display: flex; flex-direction: column; }
+.modal-content.modal-fullscreen .modal-body { flex-grow: 1; max-height: none; padding-right: 0; }
+@media (max-width: 991.98px) { .modal-content.modal-fullscreen { width: 100vw; height: 100vh; border-radius: 0; padding: 16px; } }
+
+/* Lima Action Pill Style */
+.day-pill.lima-pill {
+    background-color: #ec4899; /* pink-500 */
+    color: white;
+}
+
+/* Shortage Notifications */
+@keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+.shortage-notification { position: fixed; bottom: 20px; right: 20px; width: 350px; max-width: 90vw; background-color: var(--bg-secondary); border: 1px solid var(--accent-danger); border-left: 5px solid var(--accent-danger); border-radius: 8px; box-shadow: var(--shadow-lg); z-index: 1999; cursor: pointer; animation: slideInRight 0.4s ease-out forwards; }
+.shortage-notification .notification-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; color: var(--accent-danger); border-bottom: 1px solid var(--border-color); }
+.shortage-notification .notification-list { list-style: none; padding: 8px 16px; max-height: 150px; overflow-y: auto; }
+.shortage-notification .notification-list li { padding: 4px 0; font-size: 0.9rem; }
+
+#login-modal { position: fixed; inset: 0; background-color: var(--bg-primary); z-index: 9998; display: flex; align-items: center; justify-content: center; }
+.login-box { background: var(--bg-secondary); padding: 40px; border-radius: 16px; box-shadow: var(--shadow-lg); width: 90%; max-width: 400px; display: flex; flex-direction: column; gap: 20px; border: 1px solid var(--border-color); }

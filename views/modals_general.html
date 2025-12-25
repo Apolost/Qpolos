@@ -1,0 +1,315 @@
+
+<div id="add-suroviny-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Přidat suroviny na sklad</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body" id="add-suroviny-modal-body">
+            <!-- JS generated content -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-added-suroviny">Uložit</button>
+        </div>
+    </div>
+</div>
+
+<div id="add-change-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="add-change-modal-title">Přidat změnu</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="change-date-from">Platnost od</label>
+                    <input type="date" id="change-date-from">
+                </div>
+                <div class="form-field">
+                    <label for="change-date-to">Platnost do (nepovinné)</label>
+                    <input type="date" id="change-date-to">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="change-title">Nadpis</label>
+                <input type="text" id="change-title" placeholder="Stručný popis změny">
+            </div>
+            <div class="form-group">
+                <label for="change-text">Text změny</label>
+                <textarea id="change-text" placeholder="Detailní popis změny..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" id="save-change-btn" data-action="save-change">Uložit změnu</button>
+        </div>
+    </div>
+</div>
+
+<div id="plan-action-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="plan-action-modal-title">Naplánovat akci</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group" style="display: flex; justify-content: center; margin-bottom: 20px;">
+                <div class="btn-group">
+                    <button type="button" class="btn active" id="plan-mode-standard">Standardní</button>
+                    <button type="button" class="btn" id="plan-mode-lima">Lima</button>
+                </div>
+            </div>
+            <div id="plan-action-standard-container">
+                <div class="form-row">
+                    <div class="form-field"><label>Zákazník</label><select id="plan-action-customer"></select></div>
+                    <div class="form-field"><label>Produkt</label><select id="plan-action-product"></select></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>Typ balení</label>
+                        <select id="plan-action-type">
+                            <option value="VL">Volně ložené (VL)</option>
+                            <option value="OA">Malé misky (OA)</option>
+                            <option value="RB">Rodinné balení (RB)</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="plan-action-daily-counts"></div>
+            </div>
+            <div id="plan-action-lima-container" style="display: none;">
+                <div class="form-group">
+                    <label for="plan-action-lima-name">Název</label>
+                    <input type="text" id="plan-action-lima-name" placeholder="Např. Lima Akce">
+                </div>
+                <div class="form-group">
+                    <label for="plan-action-lima-count">Počet</label>
+                    <input type="number" id="plan-action-lima-count" placeholder="0">
+                </div>
+            </div>
+            <div class="form-row" style="margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                <div class="form-field"><label id="label-date-from">Od</label><input type="date" id="plan-action-from"></div>
+                <div class="form-field" id="container-date-to"><label>Do</label><input type="date" id="plan-action-to"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" id="save-planned-action-btn" data-action="save-planned-action">Uložit akci</button>
+        </div>
+    </div>
+</div>
+
+<div id="day-details-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="day-details-title">Detail dne</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body" id="day-details-body"></div>
+    </div>
+</div>
+
+<div id="confirmation-modal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-header">
+            <h2 class="modal-title" id="confirmation-modal-title">Potvrdit akci</h2>
+        </div>
+        <div class="modal-body" id="confirmation-modal-body">
+            <p>Opravdu si přejete pokračovat?</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="confirmation-cancel-btn">Zrušit</button>
+            <button class="btn btn-danger" id="confirmation-confirm-btn">Potvrdit</button>
+        </div>
+    </div>
+</div>
+
+<div id="qr-display-modal" class="modal">
+    <div class="modal-content" style="max-width: 400px; text-align: center;">
+        <div class="modal-header">
+            <h2 class="modal-title">Vygenerovaný QR Kód</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <canvas id="qr-canvas"></canvas>
+            <p id="qr-data-text" style="margin-top: 15px; font-family: monospace; background-color: var(--bg-tertiary); padding: 8px; border-radius: 4px;"></p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-action="close-modal">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<div id="export-actions-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Exportovat naplánované akce</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <p>Vyberte měsíce pro export. Každým kliknutím na '+' přidáte následující měsíc.</p>
+            <div id="export-months-list" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;"></div>
+            <div style="text-align: center; margin-top: 15px;">
+                <button class="btn-icon" data-action="add-month-to-export" title="Přidat další měsíc">
+                    <i data-feather="plus-circle"></i>
+                </button>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="export-actions-to-pdf"><i data-feather="file-text"></i>Exportovat do PDF</button>
+        </div>
+    </div>
+</div>
+
+<div id="surovina-shortage-modal" class="modal">
+    <div class="modal-content" style="width: 95vw; max-width: 1200px; height: 90vh; display: flex; flex-direction: column;">
+        <div class="modal-header">
+            <h2 class="modal-title" id="surovina-shortage-title"></h2>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <button class="btn btn-secondary" id="surovina-shortage-adjust-weight-btn" data-action="open-temp-weight-modal">
+                    <i data-feather="edit-3"></i> Upravit váhu
+                </button>
+                <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div class="modal-body" id="surovina-shortage-body"></div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-action="close-modal">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<div id="shorten-order-modal" class="modal" style="z-index: 1010;">
+    <div class="modal-content" style="max-width: 500px;">
+        <div class="modal-header">
+            <h2 class="modal-title" id="shorten-order-title">Pokrátit objednávku</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body" id="shorten-order-body">
+            <div id="shorten-order-calculation" class="card" style="padding: 15px; margin-bottom: 20px; background-color: var(--bg-tertiary);"></div>
+            <div class="form-group">
+                <p>Původní objednávka: <strong id="shorten-order-original-amount">...</strong></p>
+            </div>
+            <div class="form-group">
+                <label for="shorten-order-new-amount">Nový počet beden</label>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="number" id="shorten-order-new-amount" min="0" style="flex-grow: 1;">
+                    <button class="btn btn-secondary" id="apply-suggested-boxes-btn">Použít navrhované</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-shortened-order">Uložit pokrácení</button>
+        </div>
+    </div>
+</div>
+
+<div id="single-stock-adjustment-modal" class="modal">
+    <div class="modal-content" style="max-width: 450px;">
+        <div class="modal-header">
+            <h2 class="modal-title" id="single-stock-adjustment-title">Upravit sklad</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="single-stock-palettes">Palety na skladě</label>
+                    <input type="number" id="single-stock-palettes" min="0">
+                </div>
+                <div class="form-field">
+                    <label for="single-stock-boxes">Bedny na skladě (dnes)</label>
+                    <input type="number" id="single-stock-boxes" min="0">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-single-stock-adjustment">Uložit</button>
+        </div>
+    </div>
+</div>
+
+<div id="surovina-source-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Vyberte zdroj suroviny</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body production-actions-stack">
+             <button class="btn btn-primary" data-action="open-add-suroviny-modal-from-stock">
+                <i data-feather="archive"></i>
+                <div>
+                    <span>Ze skladu (stará surovina)</span>
+                    <small style="display: block; font-weight: 400; text-align: left;">Přidá na sklad existující surovinu, která nepochází z dnešní výroby.</small>
+                </div>
+            </button>
+            <button class="btn btn-primary" data-action="open-add-suroviny-modal-from-production">
+                <i data-feather="package"></i>
+                <div>
+                    <span>Z dnešní výroby (přídavek)</span>
+                    <small style="display: block; font-weight: 400; text-align: left;">Přidá na sklad surovinu z dnešní výroby po celých paletách nebo bednách.</small>
+                </div>
+            </button>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+        </div>
+    </div>
+</div>
+
+<!-- Notifications Center Modal -->
+<div id="notifications-modal" class="modal">
+    <div class="modal-content" style="max-width: 1000px; height: 95vh; display: flex; flex-direction: column;">
+        <div class="modal-header">
+            <h2 class="modal-title">Centrum upozornění</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        
+        <div class="modal-body" style="padding: 0; display: flex; flex-direction: column; overflow: hidden;">
+            <!-- Settings Section (Accordion Config) -->
+            <div style="background-color: var(--bg-tertiary); border-bottom: 1px solid var(--border-color); padding: 15px 20px; overflow-y: auto; max-height: 60%;">
+                <h3 style="margin-top: 0; font-size: 1.1rem; color: var(--text-primary); margin-bottom: 15px;">Konfigurace zobrazení</h3>
+                <div id="notification-settings-table-container">
+                    <!-- JS generated accordion will go here -->
+                </div>
+            </div>
+
+            <div style="padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); background-color: var(--bg-secondary);">
+                <span style="font-weight: 600; color: var(--text-primary);">Historie zpráv</span>
+                <button class="btn btn-sm btn-secondary" data-action="clear-notifications" style="font-size: 0.8rem;">
+                    <i data-feather="trash-2" style="width: 14px; height: 14px;"></i> Vymazat historii
+                </button>
+            </div>
+            
+            <div id="notifications-list" style="flex-grow: 1; overflow-y: auto; padding: 20px; background-color: var(--bg-primary);">
+                <!-- JS generated list -->
+            </div>
+        </div>
+        
+        <div class="modal-footer" style="padding: 15px 20px; border-top: 1px solid var(--border-color); margin-top: 0; background-color: var(--bg-secondary);">
+            <button class="btn btn-primary" data-action="save-notification-settings"><i data-feather="save"></i> Uložit nastavení</button>
+            <button class="btn btn-secondary" data-action="close-modal">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<!-- Needs Breakdown Modal (New) -->
+<div id="needs-breakdown-modal" class="modal">
+    <div class="modal-content" style="max-width: 600px; height: 80vh; display: flex; flex-direction: column;">
+        <div class="modal-header">
+            <h2 class="modal-title" id="needs-breakdown-title">Detail potřeby</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body" style="padding: 0; display: flex; flex-direction: column; overflow: hidden;">
+            <div id="needs-breakdown-list" style="flex-grow: 1; overflow-y: auto; padding: 20px;">
+                <!-- Content generated by JS -->
+            </div>
+        </div>
+        <div class="modal-footer" style="border-top: 1px solid var(--border-color);">
+            <button class="btn btn-primary" data-action="close-modal">Zavřít</button>
+        </div>
+    </div>
+</div>

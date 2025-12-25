@@ -1,0 +1,46 @@
+<div id="view-qr-code">
+    <div class="page-header-container">
+        <h1 class="page-header" style="margin-bottom: 0;">Správa QR kódů a Skenování</h1>
+        <div>
+            <button class="btn btn-secondary" data-action="generate-qr-code"><i data-feather="plus-square"></i> Generovat QR kód</button>
+            <button class="btn btn-primary" id="start-scan-btn" data-action="start-qr-scan"><i data-feather="camera"></i> Spustit skenování</button>
+            <button class="btn btn-danger" id="stop-scan-btn" data-action="stop-qr-scan" style="display: none;"><i data-feather="camera-off"></i> Zastavit skenování</button>
+        </div>
+    </div>
+    
+    <div class="card" id="scanning-ui" style="display: none;">
+        <div class="card-header"><h2 class="card-title" id="scan-mode-title">Skenování</h2></div>
+        <div class="card-content" style="text-align: center;">
+            <p id="qr-instructions">Namiřte kameru na QR kód.</p>
+            <video id="qr-video" playsinline style="width: 100%; max-width: 500px; border-radius: 8px; display: none;"></video>
+            <div id="qr-scan-actions" style="margin-top: 20px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                 <button class="btn btn-secondary" data-action="scan-for-removal"><i data-feather="trash-2"></i> Skenovat pro odebrání</button>
+                 <button class="btn btn-success" data-action="start-add-to-stock"><i data-feather="package"></i> Přidat surovinu na sklad</button>
+            </div>
+             <div id="qr-result-container" style="margin-top: 20px;">
+                <h3>Poslední sken:</h3>
+                <pre id="qr-result" style="background-color: var(--bg-tertiary); padding: 15px; border-radius: 8px; margin-top: 10px; text-align: left; white-space: pre-wrap; word-break: break-all; min-height: 50px;"></pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><h2 class="card-title">Seznam vygenerovaných QR kódů</h2></div>
+        <div class="card-content">
+            <table class="data-table" id="qr-code-list-table">
+                <thead>
+                    <tr>
+                        <th>Vytvořeno</th>
+                        <th>Status</th>
+                        <th>Přiřazená surovina</th>
+                        <th>Čas přiřazení</th>
+                        <th class="actions">Akce</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- JS Generated Content -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

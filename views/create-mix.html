@@ -1,0 +1,29 @@
+<div id="view-create-mix">
+    <h1 class="page-header" id="create-mix-header">Vytvořit nový mix</h1>
+    <div class="card">
+        <div class="form-row">
+            <div class="form-field"><label for="new-product-name">Název mixu</label><input type="text" id="new-product-name"></div>
+            <div class="form-field"><label for="new-mix-customer">Zákazník</label><select id="new-mix-customer"></select></div>
+            <div class="form-field"><label for="new-mix-box-type">Typ bedny</label><select id="new-mix-box-type"></select></div>
+        </div>
+        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;">
+        <h3>Složení mixu</h3>
+        <div id="new-product-components"></div>
+        <button class="btn btn-success" id="add-new-product-component-btn" data-action="add-new-product-component" style="margin-top: 10px;"><i data-feather="plus-circle"></i>Přidat surovinu</button>
+        <div style="font-weight: bold; margin-top: 15px;">Celkem: <span id="new-product-total-percentage">0</span>%</div>
+        <div style="text-align: right; margin-top: 20px;">
+            <button class="btn btn-secondary" id="cancel-edit-mix-btn" data-action="cancel-edit-mix" style="display: none;">Zrušit úpravu</button>
+            <button class="btn btn-primary" id="save-new-product-btn" data-action="save-new-product"><i data-feather="save"></i>Uložit mix</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header"><h2 class="card-title">Existující mixy</h2></div>
+        <div class="card-content">
+            <table class="data-table" id="existing-mixes-table">
+                <thead><tr><th>Název mixu</th><th>Zákazník</th><th>Složení</th><th class="actions">Akce</th></tr></thead>
+                <tbody id="existing-mixes-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>

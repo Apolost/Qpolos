@@ -1,0 +1,68 @@
+<div id="frozen-main-modal" class="modal">
+    <div class="modal-content" style="max-width: 90vw; height: 90vh; display: flex; flex-direction: column;">
+        <div class="modal-header">
+            <h2 class="modal-title">Výroba mražených produktů</h2>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                 <button class="btn btn-primary" data-action="open-add-frozen-request-modal"><i data-feather="plus"></i> Požadavek do mrazu</button>
+                 <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div class="modal-body" id="frozen-main-modal-body">
+            <!-- JS will render production requests here -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zavřít</button>
+            <button class="btn btn-primary" data-action="save-frozen-production"><i data-feather="save"></i> Uložit</button>
+        </div>
+    </div>
+</div>
+
+<div id="add-frozen-product-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+        <div class="modal-header">
+            <h2 class="modal-title" id="frozen-product-modal-title">Vytvořit mražený produkt</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="frozen-product-name">Název produktu</label>
+                <input type="text" id="frozen-product-name">
+            </div>
+            <div class="form-group">
+                <label for="frozen-product-raw-material">Surovina</label>
+                <select id="frozen-product-raw-material"></select>
+            </div>
+            <div class="form-group">
+                <label for="frozen-product-carton-weight">Váha kartonu (kg)</label>
+                <input type="number" id="frozen-product-carton-weight" step="0.1" min="0">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="cancel-edit-frozen-product">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-frozen-product">Uložit</button>
+        </div>
+    </div>
+</div>
+
+<div id="add-frozen-request-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Nový požadavek do mrazu</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="frozen-request-product">Produkt</label>
+                <select id="frozen-request-product"></select>
+            </div>
+            <div class="form-group">
+                <label for="frozen-request-kg">Požadované množství (kg)</label>
+                <input type="number" id="frozen-request-kg" min="0">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-frozen-request">Uložit požadavek</button>
+        </div>
+    </div>
+</div>

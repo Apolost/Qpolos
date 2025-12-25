@@ -1,0 +1,58 @@
+<div id="add-material-estimate-modal" class="modal">
+    <div class="modal-content" style="max-width: 550px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Přidat odhad do grafu</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="estimate-date">Datum</label>
+                    <input type="date" id="estimate-date">
+                </div>
+                 <div class="form-field">
+                    <label for="estimate-customer">Zákazník</label>
+                    <select id="estimate-customer"></select>
+                </div>
+            </div>
+            <div class="form-group" id="estimate-type-group">
+                <label for="estimate-type">Typ balení</label>
+                <select id="estimate-type">
+                    <option value="OA">Malé misky (OA)</option>
+                    <option value="RB">Rodinné balení (RB)</option>
+                    <option value="VL">Volně ložené (VL)</option>
+                </select>
+            </div>
+            <div id="estimate-products-container">
+                <!-- JS generated content -->
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-material-estimate">Uložit odhad</button>
+        </div>
+    </div>
+</div>
+
+<div id="chicken-estimate-modal" class="modal">
+    <div class="modal-content" style="max-width: 90vw; height: 90vh; display: flex; flex-direction: column;">
+        <div class="modal-header">
+            <h2 class="modal-title">Odhad naskladnění kuřat</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="calendar-toolbar" style="justify-content: center; margin-bottom: 1rem;">
+                <button id="prev-month-chicken-estimate-btn" class="btn btn-secondary" data-action="prev-month-chicken-estimate"><i data-feather="arrow-left"></i></button>
+                <div id="current-month-chicken-estimate-display" style="font-size: 1.25rem; font-weight: 600;"></div>
+                <button id="next-month-chicken-estimate-btn" class="btn btn-secondary" data-action="next-month-chicken-estimate"><i data-feather="arrow-right"></i></button>
+            </div>
+            <div id="chicken-estimate-calendar-container" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; overflow-y: auto; flex-grow: 1;">
+                <!-- Calendar will be rendered here by JS -->
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-chicken-estimates">Uložit odhady</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div id="view-kfc">
+     <div class="page-header-container">
+        <h1 class="page-header" style="margin-bottom: 0;">KFC Plán</h1>
+        <div>
+            <button class="btn btn-secondary" data-action="open-kfc-stock"><i data-feather="archive"></i>Sklad</button>
+            <button class="btn btn-secondary" data-action="open-kfc-staff-modal"><i data-feather="users"></i>Přidat lidi</button>
+            <button class="btn btn-primary" data-action="open-kfc-add-order"><i data-feather="plus"></i>Přidat Objednávku</button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><h2 class="card-title">Objednávka produktů</h2></div>
+        <div class="card-content">
+            <table class="data-table" id="kfc-order-table">
+                <thead><tr><th>Produkt</th><th>Vyrobeno (beden)</th><th>Objednáno (beden)</th><th>Chybí (beden)</th><th>Zítra (beden)</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="card-footer" style="text-align: right; padding-top: 20px; border-top: 1px solid var(--border-color); margin-top: -10px;">
+            <h3 style="font-size: 1.2rem;">Předpokládaný čas na dokončení: <span id="kfc-total-time" style="color: var(--accent-primary);"></span></h3>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><h2 class="card-title">Potřeba surovin (KFC)</h2></div>
+        <div class="card-content">
+            <table class="data-table" id="kfc-suroviny-needed-table">
+                <thead><tr><th>Surovina</th><th>Potřeba (beden)</th><th>Skladem (beden)</th><th>Chybí / Přebývá (beden)</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>

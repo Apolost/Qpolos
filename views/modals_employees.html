@@ -1,0 +1,621 @@
+
+<!-- Employee Modals -->
+<button id="sidebar-toggle-button" class="fixed top-6 right-6 z-40 p-3 rounded-full bg-indigo-600 text-white shadow-lg hover:bg-indigo-700 active:bg-indigo-800 transition-all duration-200 ease-in-out transform hover:scale-110 active:scale-100" style="display: none;">
+    <i data-feather="menu" class="w-6 h-6"></i>
+</button>
+<div id="sidebar-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40"></div>
+<aside id="sidebar" class="sidebar fixed top-0 right-0 h-full w-80 bg-white shadow-2xl p-6 z-50 transform translate-x-full flex flex-col">
+    <div class="flex justify-between items-center mb-8">
+        <h2 class="text-xl font-bold text-gray-800">Možnosti</h2>
+        <button id="close-sidebar-button" class="p-2 rounded-full hover:bg-slate-100">
+            <i data-feather="x" class="w-6 h-6 text-slate-600"></i>
+        </button>
+    </div>
+    <div class="space-y-3 flex-grow">
+         <button id="open-add-employee-modal" class="w-full justify-center bg-indigo-600 text-white font-semibold py-2.5 px-5 rounded-lg shadow-md hover:bg-indigo-700 active:bg-indigo-800 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2">
+            <i data-feather="user-plus" class="w-5 h-5"></i>
+            <span>Přidat zaměstnance</span>
+        </button>
+        <button id="open-shifts-modal" class="w-full justify-center bg-white text-slate-700 font-semibold py-2.5 px-5 rounded-lg shadow-md border border-slate-300 hover:bg-slate-50 active:bg-slate-100 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2">
+            <i data-feather="users" class="w-5 h-5"></i>
+            <span>Směny</span>
+        </button>
+        <button id="open-locations-modal" class="w-full justify-center bg-amber-50 text-amber-700 font-semibold py-2.5 px-5 rounded-lg shadow-md border border-amber-200 hover:bg-amber-100 active:bg-amber-200 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2">
+            <i data-feather="map-pin" class="w-5 h-5"></i>
+            <span>Prac. umístění</span>
+        </button>
+        <button id="show-foremen-view" class="w-full justify-center bg-rose-50 text-rose-700 font-semibold py-2.5 px-5 rounded-lg shadow-md border border-rose-200 hover:bg-rose-100 active:bg-rose-200 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2">
+            <i data-feather="clipboard" class="w-5 h-5"></i>
+            <span>Přední dělníci</span>
+        </button>
+        <button id="show-forklift-view" class="w-full justify-center bg-teal-50 text-teal-700 font-semibold py-2.5 px-5 rounded-lg shadow-md border border-teal-200 hover:bg-teal-100 active:bg-teal-200 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2">
+            <i data-feather="truck" class="w-5 h-5"></i>
+            <span>Vozíčkáři</span>
+        </button>
+        <button id="show-hours-view" class="w-full justify-center bg-cyan-50 text-cyan-700 font-semibold py-2.5 px-5 rounded-lg shadow-md border border-cyan-200 hover:bg-cyan-100 active:bg-cyan-200 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2">
+            <i data-feather="clock" class="w-5 h-5"></i>
+            <span>Hodiny</span>
+        </button>
+    </div>
+    <div class="space-y-3 pt-4 border-t">
+        <label for="load-data-input" class="w-full cursor-pointer justify-center bg-sky-50 text-sky-700 font-semibold py-2.5 px-5 rounded-lg shadow-md border border-sky-200 hover:bg-sky-100 active:bg-sky-200 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2">
+             <i data-feather="folder" class="w-5 h-5"></i>
+             <span>Importovat data</span>
+        </label>
+        <input type="file" id="load-data-input" class="hidden" accept=".json">
+
+        <button id="save-data-button" class="w-full justify-center bg-slate-700 text-white font-semibold py-2.5 px-5 rounded-lg shadow-md hover:bg-slate-800 active:bg-slate-900 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2">
+             <i data-feather="save" class="w-5 h-5"></i>
+             <span>Exportovat data</span>
+        </button>
+    </div>
+</aside>
+
+<!-- NEW: Employee Management Modal -->
+<div id="employee-management-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-7xl h-[90vh] flex flex-col transform">
+        <div class="flex justify-between items-center mb-4 border-b pb-4">
+            <h2 class="text-2xl font-bold text-gray-800">Správa zaměstnanců</h2>
+            <button type="button" id="close-employee-management-modal" class="p-2 hover:bg-slate-100 rounded-full transition-colors">
+                <i data-feather="x" class="w-6 h-6 text-slate-600"></i>
+            </button>
+        </div>
+        
+        <div class="flex-grow overflow-hidden flex flex-col md:flex-row gap-6">
+            <!-- 1. Směna Column -->
+            <div class="flex-1 flex flex-col min-h-0 bg-blue-50 rounded-xl border border-blue-100 overflow-hidden">
+                <div class="p-4 bg-blue-100 border-b border-blue-200 flex justify-between items-center">
+                    <h3 class="text-lg font-bold text-blue-800">1. SMĚNA</h3>
+                    <span id="manage-shift1-count" class="bg-blue-600 text-white px-2 py-1 rounded-full text-sm font-bold">0</span>
+                </div>
+                <div class="flex-grow overflow-y-auto p-4" id="manage-shift1-list">
+                    <!-- JS generated content -->
+                </div>
+            </div>
+
+            <!-- 2. Směna Column -->
+            <div class="flex-1 flex flex-col min-h-0 bg-green-50 rounded-xl border border-green-100 overflow-hidden">
+                <div class="p-4 bg-green-100 border-b border-green-200 flex justify-between items-center">
+                    <h3 class="text-lg font-bold text-green-800">2. SMĚNA</h3>
+                    <span id="manage-shift2-count" class="bg-green-600 text-white px-2 py-1 rounded-full text-sm font-bold">0</span>
+                </div>
+                <div class="flex-grow overflow-y-auto p-4" id="manage-shift2-list">
+                    <!-- JS generated content -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-4 pt-4 border-t flex justify-end">
+            <button type="button" id="close-employee-management-modal-btn" class="bg-slate-700 text-white font-semibold py-2 px-6 rounded-lg shadow-sm hover:bg-slate-800">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<div id="add-employee-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md transform">
+        <h2 id="employee-modal-title" class="text-2xl font-bold mb-6 text-gray-800">Přidat nového zaměstnance</h2>
+        <form id="add-employee-form">
+            <input type="hidden" id="employee-id">
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">Jméno</label>
+                    <input type="text" id="firstName" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Příjmení</label>
+                    <input type="text" id="lastName" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Telefon (nepovinné)</label>
+                <input type="tel" id="phone" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+             <div class="mb-4">
+                <label for="chip" class="block text-sm font-medium text-gray-700 mb-1">Čip (nepovinné)</label>
+                <input type="text" id="chip" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+             <div class="mb-4">
+                <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Pracovní umístění</label>
+                <select id="location" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white"></select>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label for="shift" class="block text-sm font-medium text-gray-700 mb-1">Směna</label>
+                    <select id="shift" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                        <option value="1">1. směna</option>
+                        <option value="2">2. směna</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Pohlaví</label>
+                    <select id="gender" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                        <option value="muz">Muž</option>
+                        <option value="zena">Žena</option>
+                    </select>
+                </div>
+            </div>
+             <div class="mb-6">
+                <label for="departureDate" class="block text-sm font-medium text-gray-700 mb-1">Datum odjezdu</label>
+                <div class="flex gap-2">
+                    <input type="date" id="departureDate" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                    <button type="button" id="departure-3-months" class="bg-slate-100 text-slate-600 px-3 py-2 rounded-lg text-sm font-semibold hover:bg-slate-200 active:bg-slate-300 whitespace-nowrap border border-slate-300">Za 3 měsíce</button>
+                    <button type="button" id="unknown-departure-btn" class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200" title="Neznámé datum odjezdu"><i data-feather="help-circle" class="w-5 h-5 text-slate-600"></i></button>
+                </div>
+            </div>
+            <div class="flex justify-end gap-3">
+                <button type="button" id="close-add-employee-modal" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50 active:bg-slate-100">Zavřít</button>
+                <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700 active:bg-indigo-800">Uložit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="shifts-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-4xl transform">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Přehled směn</h2>
+        <div id="shifts-content" class="flex flex-col md:flex-row gap-6"></div>
+         <div class="mt-8 pt-4 border-t flex justify-between items-center">
+            <div id="shifts-total" class="font-bold text-lg"></div>
+            <button type="button" id="close-shifts-modal" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<div id="add-departure-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md transform">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Zadat nový odjezd</h2>
+        <form id="add-departure-form">
+            <div class="mb-4">
+                <label for="departure-employee-select" class="block text-sm font-medium text-gray-700 mb-1">Vyberte zaměstnance</label>
+                <select id="departure-employee-select" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white"></select>
+            </div>
+            <div class="mb-6">
+                <label for="newDepartureDate" class="block text-sm font-medium text-gray-700 mb-1">Nové datum odjezdu</label>
+                <input type="date" id="newDepartureDate" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div class="flex justify-end gap-3">
+                <button type="button" id="close-add-departure-modal" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50">Zavřít</button>
+                <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Uložit odjezd</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="locations-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-lg transform">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Pracovní umístění</h2>
+            <button id="open-add-location-button" class="bg-indigo-600 text-white font-semibold py-2 px-3 rounded-lg flex items-center gap-2 shadow-sm hover:bg-indigo-700">
+                <i data-feather="plus" class="w-5 h-5"></i> Přidat
+            </button>
+        </div>
+        <div id="locations-list" class="space-y-2 max-h-96 overflow-y-auto"></div>
+        <div class="mt-8 pt-4 border-t flex justify-end">
+            <button type="button" id="close-locations-modal" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<div id="daily-departures-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-lg transform">
+         <h2 id="daily-departures-title" class="text-2xl font-bold mb-6 text-gray-800">Odjezdy</h2>
+         <div id="daily-departures-list" class="space-y-2 max-h-96 overflow-y-auto"></div>
+         <div class="mt-8 pt-4 border-t flex justify-end">
+            <button type="button" id="close-daily-departures-modal" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<div id="add-edit-location-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-[70]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm transform">
+        <h2 id="add-edit-location-title" class="text-2xl font-bold mb-6 text-gray-800"></h2>
+        <form id="add-edit-location-form">
+            <input type="hidden" id="location-id">
+            <div class="mb-4">
+                <label for="location-name" class="block text-sm font-medium text-gray-700 mb-1">Název umístění</label>
+                <input type="text" id="location-name" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div class="flex justify-end gap-3 mt-6">
+                <button type="button" id="cancel-add-edit-location" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50">Zrušit</button>
+                <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Uložit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="fill-departure-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm transform">
+        <h2 id="fill-departure-title" class="text-2xl font-bold mb-6 text-gray-800">Doplnit odjezd</h2>
+        <form id="fill-departure-form">
+            <input type="hidden" id="fill-departure-employee-id">
+            <div class="my-6">
+                <label for="fill-departure-date" class="block text-sm font-medium text-gray-700 mb-1">Datum odjezdu</label>
+                <input type="date" id="fill-departure-date" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div class="flex justify-end gap-3">
+                <button type="button" id="close-fill-departure-modal" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50">Zavřít</button>
+                <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Uložit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- NEW: Export Departures Modal -->
+<div id="export-departures-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md transform">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">Export odjezdů</h2>
+        <p class="text-gray-600 mb-4 text-sm">Vyberte měsíce, za které chcete vygenerovat seznam odjezdů do Excelu.</p>
+        
+        <div id="export-departures-months-list" class="space-y-2 mb-4 max-h-60 overflow-y-auto bg-slate-50 p-2 rounded-lg border border-slate-200">
+            <!-- JS generated list -->
+        </div>
+        
+        <div class="flex justify-center mb-6">
+             <button id="add-export-month-btn" class="p-2 rounded-full bg-indigo-50 text-indigo-600 hover:bg-indigo-100 active:bg-indigo-200 transition-all" title="Přidat další měsíc">
+                <i data-feather="plus" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-4 border-t">
+            <button type="button" id="close-export-departures-modal" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50">Zavřít</button>
+            <button type="button" id="confirm-export-departures-btn" class="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-green-700 flex items-center gap-2">
+                <i data-feather="file-text" class="w-4 h-4"></i>
+                Vygenerovat Excel
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Foreman Modals -->
+ <div id="add-foreman-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md transform">
+        <h2 id="foreman-modal-title" class="text-2xl font-bold mb-6 text-gray-800">Přidat předního dělníka</h2>
+        <form id="add-foreman-form">
+            <input type="hidden" id="foreman-id">
+            <div class="mb-4">
+                <label for="foreman-firstName" class="block text-sm font-medium text-gray-700 mb-1">Jméno</label>
+                <input type="text" id="foreman-firstName" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div class="mb-4">
+                <label for="foreman-lastName" class="block text-sm font-medium text-gray-700 mb-1">Příjmení</label>
+                <input type="text" id="foreman-lastName" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+             <div class="mb-4">
+                <label for="foreman-chip" class="block text-sm font-medium text-gray-700 mb-1">Čip</label>
+                <input type="text" id="foreman-chip" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div class="mb-6">
+                <label for="foreman-phone" class="block text-sm font-medium text-gray-700 mb-1">Telefon (nepovinné)</label>
+                <input type="tel" id="foreman-phone" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div class="flex justify-end gap-3">
+                <button type="button" id="close-add-foreman-modal" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50">Zavřít</button>
+                <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Uložit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+ <div id="foremen-list-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-2xl transform">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Seznam předních dělníků</h2>
+        <div id="foremen-list-content" class="space-y-2 max-h-96 overflow-y-auto"></div>
+        <div class="mt-8 pt-4 border-t flex justify-end">
+            <button type="button" id="close-foremen-list-modal" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<div id="assign-foreman-week-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md transform">
+        <h2 id="assign-foreman-week-title" class="text-2xl font-bold mb-6 text-gray-800"></h2>
+        <form id="assign-foreman-week-form">
+            <input type="hidden" id="foreman-week-start-date">
+            <div class="mb-4">
+                <label for="foreman-week-select" class="block text-sm font-medium text-gray-700 mb-1">Vyberte předního dělníka</label>
+                <select id="foreman-week-select" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white"></select>
+            </div>
+            <div class="mb-4">
+                <label for="foreman-assignment-type-select" class="block text-sm font-medium text-gray-700 mb-1">Typ přiřazení</label>
+                 <select id="foreman-assignment-type-select" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                    <option value="shift">Směna</option>
+                    <option value="vacation">Dovolená</option>
+                </select>
+            </div>
+            <div id="foreman-shift-assignment-section">
+                <label for="foreman-shift-week-select" class="block text-sm font-medium text-gray-700 mb-1">Přiřadit na směnu</label>
+                 <select id="foreman-shift-week-select" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                    <option value="morning">Ranní</option>
+                    <option value="afternoon">Odpolední</option>
+                    <option value="night">Noční</option>
+                </select>
+            </div>
+             <div id="foreman-vacation-assignment-section" class="hidden mt-4 space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                       <label for="foreman-vacation-start-date" class="block text-sm font-medium text-gray-700 mb-1">Od</label>
+                       <input type="date" id="foreman-vacation-start-date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                       <label for="foreman-vacation-end-date" class="block text-sm font-medium text-gray-700 mb-1">Do</label>
+                       <input type="date" id="foreman-vacation-end-date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                </div>
+                <button type="button" id="set-foreman-full-week-vacation-btn" class="w-full justify-center bg-rose-50 text-rose-700 font-semibold py-2 px-4 rounded-lg border border-rose-200 hover:bg-rose-100">
+                    Nastavit celý týden
+                </button>
+            </div>
+            <div class="flex justify-end gap-3 mt-6">
+                <button type="button" id="close-assign-foreman-week-modal" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50">Zavřít</button>
+                <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Uložit přiřazení</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="weekend-foreman-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md transform">
+        <h2 id="weekend-foreman-title" class="text-2xl font-bold mb-6 text-gray-800"></h2>
+        <form id="weekend-foreman-form">
+            <input type="hidden" id="weekend-foreman-date">
+            <div class="mb-4">
+                <label for="weekend-foreman-select" class="block text-sm font-medium text-gray-700 mb-1">Přední dělník</label>
+                <select id="weekend-foreman-select" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white"></select>
+            </div>
+            <div class="mb-4">
+                <label for="weekend-foreman-shift-select" class="block text-sm font-medium text-gray-700 mb-1">Směna</label>
+                <select id="weekend-foreman-shift-select" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                    <option value="morning">Ráno</option>
+                    <option value="night">Večer</option>
+                </select>
+            </div>
+            <div class="mb-6">
+                <label for="weekend-foreman-note" class="block text-sm font-medium text-gray-700 mb-1">Poznámka</label>
+                <textarea id="weekend-foreman-note" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"></textarea>
+            </div>
+            <div class="flex justify-between items-center">
+                <button type="button" id="delete-weekend-foreman-assignment-btn" class="text-red-600 hover:text-red-800 font-semibold">Smazat</button>
+                <div class="flex gap-3">
+                    <button type="button" id="close-weekend-foreman-modal" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50">Zavřít</button>
+                    <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Uložit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Forklift Modals -->
+ <div id="add-forklift-driver-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md transform">
+        <h2 id="forklift-driver-modal-title" class="text-2xl font-bold mb-6 text-gray-800">Přidat vozíčkáře</h2>
+        <form id="add-forklift-driver-form">
+            <input type="hidden" id="forklift-driver-id">
+            <div class="mb-4">
+                <label for="forklift-driver-firstName" class="block text-sm font-medium text-gray-700 mb-1">Jméno</label>
+                <input type="text" id="forklift-driver-firstName" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div class="mb-4">
+                <label for="forklift-driver-lastName" class="block text-sm font-medium text-gray-700 mb-1">Příjmení</label>
+                <input type="text" id="forklift-driver-lastName" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+             <div class="mb-4">
+                <label for="forklift-driver-chip" class="block text-sm font-medium text-gray-700 mb-1">Čip</label>
+                <input type="text" id="forklift-driver-chip" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div class="mb-6">
+                <label for="forklift-driver-phone" class="block text-sm font-medium text-gray-700 mb-1">Telefon (nepovinné)</label>
+                <input type="tel" id="forklift-driver-phone" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div class="flex justify-end gap-3">
+                <button type="button" id="close-add-forklift-driver-modal" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50">Zavřít</button>
+                <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Uložit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+ <div id="forklift-drivers-list-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-2xl transform">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Seznam vozíčkářů</h2>
+        <div id="forklift-drivers-list-content" class="space-y-2 max-h-96 overflow-y-auto"></div>
+        <div class="mt-8 pt-4 border-t flex justify-end">
+            <button type="button" id="close-forklift-drivers-list-modal" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<div id="assign-forklift-driver-week-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md transform">
+        <h2 id="assign-forklift-driver-week-title" class="text-2xl font-bold mb-6 text-gray-800"></h2>
+        <form id="assign-forklift-driver-week-form">
+            <input type="hidden" id="forklift-driver-week-start-date">
+            <div class="mb-4">
+                <label for="forklift-driver-week-select" class="block text-sm font-medium text-gray-700 mb-1">Vyberte vozíčkáře</label>
+                <select id="forklift-driver-week-select" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white"></select>
+            </div>
+            <div class="mb-4">
+                <label for="forklift-driver-assignment-type-select" class="block text-sm font-medium text-gray-700 mb-1">Typ přiřazení</label>
+                 <select id="forklift-driver-assignment-type-select" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                    <option value="shift">Směna</option>
+                    <option value="vacation">Dovolená</option>
+                </select>
+            </div>
+            <div id="forklift-driver-shift-assignment-section">
+                <label for="forklift-driver-shift-week-select" class="block text-sm font-medium text-gray-700 mb-1">Přiřadit na směnu</label>
+                 <select id="forklift-driver-shift-week-select" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                    <option value="morning">Ranní</option>
+                    <option value="afternoon">Odpolední</option>
+                    <option value="night">Noční</option>
+                </select>
+            </div>
+             <div id="forklift-driver-vacation-assignment-section" class="hidden mt-4 space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                       <label for="forklift-driver-vacation-start-date" class="block text-sm font-medium text-gray-700 mb-1">Od</label>
+                       <input type="date" id="forklift-driver-vacation-start-date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div>
+                       <label for="forklift-driver-vacation-end-date" class="block text-sm font-medium text-gray-700 mb-1">Do</label>
+                       <input type="date" id="forklift-driver-vacation-end-date" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                </div>
+                <button type="button" id="set-forklift-driver-full-week-vacation-btn" class="w-full justify-center bg-rose-50 text-rose-700 font-semibold py-2 px-4 rounded-lg border border-rose-200 hover:bg-rose-100">
+                    Nastavit celý týden
+                </button>
+            </div>
+            <div class="flex justify-end gap-3 mt-6">
+                <button type="button" id="close-assign-forklift-driver-week-modal" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50">Zavřít</button>
+                <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Uložit přiřazení</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="weekend-forklift-driver-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md transform">
+        <h2 id="weekend-forklift-driver-title" class="text-2xl font-bold mb-6 text-gray-800"></h2>
+        <form id="weekend-forklift-driver-form">
+            <input type="hidden" id="weekend-forklift-driver-date">
+            <div class="mb-4">
+                <label for="weekend-forklift-driver-select" class="block text-sm font-medium text-gray-700 mb-1">Vozíčkář</label>
+                <select id="weekend-forklift-driver-select" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white"></select>
+            </div>
+            <div class="mb-4">
+                <label for="weekend-forklift-driver-shift-select" class="block text-sm font-medium text-gray-700 mb-1">Směna</label>
+                <select id="weekend-forklift-driver-shift-select" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                    <option value="morning">Ráno</option>
+                    <option value="night">Večer</option>
+                </select>
+            </div>
+            <div class="mb-6">
+                <label for="weekend-forklift-driver-note" class="block text-sm font-medium text-gray-700 mb-1">Poznámka</label>
+                <textarea id="weekend-forklift-driver-note" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"></textarea>
+            </div>
+            <div class="flex justify-between items-center">
+                <button type="button" id="delete-weekend-forklift-driver-assignment-btn" class="text-red-600 hover:text-red-800 font-semibold">Smazat</button>
+                <div class="flex gap-3">
+                    <button type="button" id="close-weekend-forklift-driver-modal" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50">Zavřít</button>
+                    <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Uložit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add Hours Modal -->
+<div id="add-hours-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md transform">
+        <h2 id="add-hours-modal-title" class="text-2xl font-bold mb-6 text-gray-800">Přidat záznam o výrobě</h2>
+        <form id="add-hours-form">
+            <div class="mb-4">
+                <label for="hours-date" class="block text-sm font-medium text-gray-700 mb-1">Datum</label>
+                 <div class="flex items-center gap-2">
+                    <button type="button" id="hours-date-prev" class="p-2 rounded-full hover:bg-slate-100"><i data-feather="chevron-left" class="w-5 h-5"></i></button>
+                    <input type="date" id="hours-date" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                    <button type="button" id="hours-date-next" class="p-2 rounded-full hover:bg-slate-100"><i data-feather="chevron-right" class="w-5 h-5"></i></button>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="hours-worked" class="block text-sm font-medium text-gray-700 mb-1">Hodiny</label>
+                <input type="number" step="0.1" id="hours-worked" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+             <div class="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label for="hours-bizzerba-kg" class="block text-sm font-medium text-gray-700 mb-1">Bizzerba (kg)</label>
+                    <input type="number" step="0.1" id="hours-bizzerba-kg" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                     <label for="hours-netto-kg" class="block text-sm font-medium text-gray-700 mb-1">Netto (kg)</label>
+                    <input type="number" step="0.1" id="hours-netto-kg" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                </div>
+            </div>
+            <div class="flex justify-between items-center">
+                <button type="button" id="delete-hours-entry-btn" class="hidden text-red-600 hover:text-red-800 font-semibold">Smazat záznam</button>
+                <div class="flex gap-3 ml-auto">
+                    <button type="button" id="close-add-hours-modal" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50">Zavřít</button>
+                    <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Uložit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Hours Settings Modal -->
+<div id="hours-settings-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md transform">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Nastavení výkonu</h2>
+        <form id="hours-settings-form">
+            <div class="mb-4">
+                <label for="performance-calculation-method" class="block text-sm font-medium text-gray-700 mb-1">Metoda výpočtu výkonu</label>
+                <select id="performance-calculation-method" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 bg-white">
+                    <option value="tons_per_hour">Tuny za hodinu (t/h)</option>
+                    <option value="hours_per_ton">Hodiny na tunu (h/t)</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="optimal-tons-per-hour" class="block text-sm font-medium text-gray-700 mb-1">Optimální výkon (tuny / hodina)</label>
+                <input type="number" step="0.01" id="optimal-tons-per-hour" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                <p class="text-xs text-gray-500 mt-1">Cílový počet tun vyrobeného masa za jednu hodinu. Použije se pro obě metody výpočtu.</p>
+            </div>
+            <div class="flex justify-end gap-3 mt-6">
+                <button type="button" id="close-hours-settings-modal" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50">Zavřít</button>
+                <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Uložit nastavení</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- NEW: Write-off Hours Modal -->
+<div id="write-off-hours-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[60]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md transform">
+        <h2 id="write-off-hours-modal-title" class="text-2xl font-bold mb-6 text-gray-800">Upsat hodiny zaměstnanci</h2>
+        <form id="write-off-hours-form">
+            <input type="hidden" id="write-off-id">
+            <div class="mb-4">
+                <label for="write-off-chip" class="block text-sm font-medium text-gray-700 mb-1">Čip zaměstnance</label>
+                <input type="text" id="write-off-chip" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div id="write-off-employee-info" class="hidden mb-4 p-3 bg-slate-50 rounded-lg text-sm space-y-1"></div>
+            <div class="mb-4">
+                <label for="write-off-date" class="block text-sm font-medium text-gray-700 mb-1">Datum upsání</label>
+                <input type="date" id="write-off-date" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div class="mb-4">
+                <label for="write-off-hours" class="block text-sm font-medium text-gray-700 mb-1">Počet hodin k upsání</label>
+                <input type="number" step="0.1" id="write-off-hours" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div class="mb-6">
+                <label for="write-off-reason" class="block text-sm font-medium text-gray-700 mb-1">Důvod</label>
+                <textarea id="write-off-reason" rows="3" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"></textarea>
+            </div>
+            <div class="flex justify-end gap-3">
+                <button type="button" id="close-write-off-hours-modal" class="bg-white text-slate-700 font-semibold py-2 px-4 rounded-lg border border-slate-300 hover:bg-slate-50">Zavřít</button>
+                <button type="submit" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Uložit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- NEW: Reason Modal -->
+<div id="reason-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[70]">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm transform">
+        <h2 class="text-xl font-bold mb-4 text-gray-800">Důvod upsání</h2>
+        <p id="reason-modal-content" class="text-gray-600 bg-slate-50 p-3 rounded-lg whitespace-pre-wrap max-h-60 overflow-y-auto"></p>
+        <div class="mt-6 flex justify-end">
+            <button type="button" id="close-reason-modal" class="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm hover:bg-indigo-700">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Context Menu for Schedule Pills -->
+<div id="schedule-pill-context-menu" class="hidden absolute bg-white shadow-lg rounded-md py-1 z-[70]">
+    <button data-action="edit" class="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">
+        <i data-feather="edit" class="w-4 h-4"></i>
+        <span>Upravit</span>
+    </button>
+    <button data-action="delete" class="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-red-700 hover:bg-red-50">
+        <i data-feather="trash-2" class="w-4 h-4"></i>
+        <span>Smazat</span>
+    </button>
+</div>

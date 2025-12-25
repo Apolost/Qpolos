@@ -1,0 +1,27 @@
+<div id="view-zmeny">
+    <div class="page-header-container">
+        <h1 class="page-header" style="margin-bottom: 0;">Změny</h1>
+        <div>
+            <button class="btn btn-secondary" data-action="add-price-change"><i data-feather="dollar-sign"></i>Změna ceny</button>
+            <button class="btn btn-primary" data-action="add-change"><i data-feather="plus"></i>Přidat změnu</button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><h2 class="card-title">Přehled změn cen</h2></div>
+        <div class="card-content">
+            <table class="data-table" id="price-changes-table">
+                <thead><tr><th>Zákazník</th><th>Produkt</th><th>Platnost od</th><th>Nová cena (Kč/kg)</th><th class="actions">Akce</th></tr></thead>
+                <tbody id="price-changes-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><h2 class="card-title">Obecné změny</h2></div>
+        <div class="card-content">
+            <table class="data-table" id="changes-table">
+                <thead><tr><th>Platnost od</th><th>Platnost do</th><th>Nadpis</th><th>Popis</th><th class="actions">Akce</th></tr></thead>
+                <tbody id="changes-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>

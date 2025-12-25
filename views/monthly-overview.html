@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Přehled Surovin</title>
+</head>
+<body>
+<div id="view-monthly-overview">
+    <div class="page-header-container">
+        <h1 class="page-header" style="margin-bottom: 0;">Přehled Surovin</h1>
+        <div>
+            <div class="form-field">
+                <label for="overview-date-from">Datum od</label>
+                <input type="date" id="overview-date-from">
+            </div>
+            <div class="form-field">
+                <label for="overview-date-to">Datum do</label>
+                <input type="date" id="overview-date-to">
+            </div>
+            <button class="btn btn-primary" id="render-overview-chart-btn"><i data-feather="bar-chart-2"></i> Zobrazit</button>
+            <button class="btn btn-secondary" id="export-overview-pdf-btn"><i data-feather="file-text"></i> Export PDF</button>
+            <button class="btn btn-secondary" data-action="open-chicken-estimate-modal"><i data-feather="truck"></i> Přidat kuřata (odhad)</button>
+            <button class="btn btn-secondary" data-action="open-material-estimate-modal"><i data-feather="plus"></i> Přidat odhad</button>
+            <button class="btn btn-secondary" data-action="generate-auto-estimate"><i data-feather="loader"></i> Auto odhad (7 dní)</button>
+            <button class="btn btn-secondary" data-action="generate-calendar-estimate"><i data-feather="calendar"></i> Přidat z kalendáře</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title" id="overview-chart-title">Graf vývoje skladu</h2>
+             <div id="overview-material-filters" class="btn-group flex-wrap">
+                <button class="btn btn-secondary active" data-filter="Prsa">Prsa</button>
+                <button class="btn btn-secondary" data-filter="Řízky">Řízky</button>
+                <button class="btn btn-secondary" data-filter="Stehna">Stehna</button>
+                <button class="btn btn-secondary" data-filter="Droby">Droby</button>
+            </div>
+        </div>
+        <div class="card-content">
+             <div style="height: 400px; position: relative;">
+                <canvas id="overview-chart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+         <div class="card-header">
+            <h2 class="card-title">Celkový součet za období</h2>
+        </div>
+        <div class="card-content" id="overview-summary-container">
+            <p>Nejprve vyberte období a surovinu a klikněte na "Zobrazit".</p>
+        </div>
+        <div id="overview-estimates-list-container" class="card-content" style="padding-top: 0;">
+            <!-- Estimates will be rendered here -->
+        </div>
+    </div>
+</div>
+</body>
+</html>

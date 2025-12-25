@@ -1,0 +1,151 @@
+<div id="mix-ratio-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="mix-ratio-modal-title">Upravit poměr surovin</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body" id="mix-ratio-modal-body"></div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" id="save-mix-ratio-btn" data-action="save-mix-ratio">Uložit poměr</button>
+        </div>
+    </div>
+</div>
+
+<!-- Calibration Modals -->
+<div id="calibration-source-modal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Vyberte surovinu pro kalibraci</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body" id="calibration-source-modal-body">
+            <!-- JS generated content -->
+        </div>
+    </div>
+</div>
+
+<div id="calibration-setup-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Nastavení kalibrace pro <span id="calibration-surovina-name"></span></h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body" id="calibration-setup-modal-body">
+            <!-- JS generated content -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-calibration-settings">Uložit nastavení</button>
+        </div>
+    </div>
+</div>
+
+<!-- Yield Settings Modal -->
+<div id="yield-settings-modal" class="modal">
+    <div class="modal-content" style="max-width: 600px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Nastavení výtěžnosti z kuřete</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 15px;">Zadejte procentuální podíl každé části z celkové váhy naskladněných kuřat.</p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Část kuřete</th>
+                        <th>Výtěžnost (%)</th>
+                    </tr>
+                </thead>
+                <tbody id="yield-settings-table-body">
+                    <!-- JS generated rows -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td style="font-weight: bold;">Celkem</td>
+                        <td style="font-weight: bold;"><span id="yield-settings-total">0</span> %</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-yield-settings">Uložit nastavení</button>
+        </div>
+    </div>
+</div>
+
+<!-- Thigh Split Settings Modal -->
+<div id="thigh-split-settings-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Rozdíl vah Horní / Spodní</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 15px;">Zadejte procentuální podíl váhy po rozříznutí celého stehna. Součet by měl být 100 %.</p>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="upper-thigh-percent">Podíl horních stehen (%)</label>
+                    <input type="number" id="upper-thigh-percent" min="0" max="100">
+                </div>
+                <div class="form-field">
+                    <label for="lower-thigh-percent">Podíl spodních stehen (%)</label>
+                    <input type="number" id="lower-thigh-percent" min="0" max="100">
+                </div>
+            </div>
+            <p><strong>Celkem: <span id="thigh-split-total">0</span> %</strong></p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-thigh-split-settings">Uložit nastavení</button>
+        </div>
+    </div>
+</div>
+
+<!-- Portioning Settings Modal -->
+<div id="portioning-settings-modal" class="modal">
+    <div class="modal-content" style="max-width: 600px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Nastavení porcovny</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="packaging-to-portioning-percent">Procento kuřat z balení na porcovnu (%)</label>
+                <input type="number" id="packaging-to-portioning-percent" min="0" max="100">
+            </div>
+            <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;">
+            <div class="form-group">
+                <label>Přepočítané hodnoty</label>
+                <p>Rychlost porcovny: <strong id="portioning-calculated-speed">...</strong> kuřat / hodina</p>
+                <small>(Maximum je 7 500 ks/hod při 100 %)</small>
+            </div>
+            <div class="form-group">
+                <label for="portioning-deviation">Odchylka linky (ks kuřat)</label>
+                <input type="number" id="portioning-deviation" placeholder="např. -100">
+                <small>Tato hodnota se automaticky přepočítává na základě procenta.</small>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-portioning-settings">Uložit nastavení</button>
+        </div>
+    </div>
+</div>
+
+<!-- Intelligent Settings Modal -->
+<div id="intelligent-settings-modal" class="modal">
+    <div class="modal-content" style="max-width: 700px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Inteligentní Nastavení Linky</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body" id="intelligent-settings-body">
+            <!-- JS Generated Content -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-action="close-modal">Zavřít</button>
+        </div>
+    </div>
+</div>

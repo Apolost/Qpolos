@@ -1,0 +1,169 @@
+
+<!-- Import Orders Main Modal -->
+<div id="import-orders-modal" class="modal">
+    <div class="modal-content" style="max-width: 95vw; height: 90vh; display: flex; flex-direction: column; padding: 0;">
+        <div class="modal-header" style="padding: 15px 20px; border-bottom: 1px solid var(--border-color); margin-bottom: 0;">
+            <h2 class="modal-title" style="font-size: 1.2rem;">Import z Excelu</h2>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <button class="btn btn-secondary btn-sm" style="padding: 4px 10px; font-size: 0.85rem;" data-action="open-mappings-modal">Správa zařazených</button>
+                <button class="btn btn-secondary btn-sm" style="padding: 4px 10px; font-size: 0.85rem;" data-action="open-sortiment-numbers-modal">Čísla sortimentu</button>
+                <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        
+        <div class="modal-body" style="display: flex; flex-direction: column; flex-grow: 1; overflow: hidden; padding: 0; max-height: none;">
+            <div style="padding: 10px 20px; border-bottom: 1px solid var(--border-color); background-color: var(--bg-tertiary); display: flex; justify-content: space-between; align-items: center;">
+                 <div style="display: flex; gap: 10px; align-items: center;">
+                    <label for="import-file-input" class="btn btn-secondary btn-sm" style="cursor: pointer; padding: 4px 10px; font-size: 0.85rem;">
+                        <i data-feather="upload" style="width: 14px; height: 14px;"></i> Vybrat Excel
+                    </label>
+                    <span id="import-file-name" style="color: var(--text-secondary); font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px;">Žádný soubor nevybrán</span>
+                    <input type="file" id="import-file-input" accept=".xlsx" style="display: none;">
+                </div>
+                <div style="font-size: 0.9rem; font-weight: 500;">
+                    K importu: <span id="import-total-count">0</span>
+                </div>
+            </div>
+
+            <div class="card-content" style="flex-grow: 1; overflow-y: auto; padding: 0;">
+                <table class="data-table" id="import-orders-table" style="border: none;">
+                    <thead style="position: sticky; top: 0; z-index: 10;">
+                        <tr>
+                            <th>Kód výrobku</th>
+                            <th>Množství (požadováno)</th>
+                            <th>Množství (odvedeno)</th>
+                            <th>K importu (Netto)</th>
+                            <th>Status</th>
+                            <th class="actions">Akce</th>
+                        </tr>
+                    </thead>
+                    <tbody id="import-orders-table-body">
+                        <tr><td colspan="6" style="text-align: center; padding: 20px;">Nahrajte soubor pro zobrazení dat.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="modal-footer" style="padding: 15px 20px; border-top: 1px solid var(--border-color); margin-top: 0; background-color: var(--bg-secondary);">
+            <button class="btn btn-secondary" data-action="close-modal">Zavřít</button>
+            <button class="btn btn-primary" data-action="confirm-import-orders" disabled id="confirm-import-btn">Importovat vybrané</button>
+        </div>
+    </div>
+</div>
+
+<!-- Classify Product Modal (Sub-modal) -->
+<div id="classify-product-modal" class="modal" style="z-index: 1010;">
+    <div class="modal-content" style="max-width: 500px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Zařadit produkt <span id="classify-product-code"></span></h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="classify-product-code-hidden">
+            <div class="form-group">
+                <label for="classify-customer">Zákazník</label>
+                <select id="classify-customer"></select>
+            </div>
+            <div class="form-group">
+                <label for="classify-surovina">Produkt / Surovina</label>
+                <select id="classify-surovina"></select>
+            </div>
+            <div class="form-group">
+                <label for="classify-type">Typ balení</label>
+                <select id="classify-type">
+                    <option value="OA">Malé misky (OA)</option>
+                    <option value="RB">Rodinné balení (RB)</option>
+                    <option value="VL">Volně ložené (VL)</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-product-classification">Uložit a zařadit</button>
+        </div>
+    </div>
+</div>
+
+<!-- Manage Mappings Modal (Sub-modal) -->
+<div id="manage-mappings-modal" class="modal" style="z-index: 1010;">
+    <div class="modal-content" style="max-width: 800px; height: 80vh; display: flex; flex-direction: column;">
+        <div class="modal-header">
+            <h2 class="modal-title">Správa zařazených produktů</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body" style="overflow-y: auto; padding: 0;">
+            <table class="data-table" id="mappings-table">
+                <thead style="position: sticky; top: 0; z-index: 10;">
+                    <tr>
+                        <th>Kód (Excel)</th>
+                        <th>Zákazník</th>
+                        <th>Produkt</th>
+                        <th>Typ</th>
+                        <th class="actions">Akce</th>
+                    </tr>
+                </thead>
+                <tbody id="mappings-table-body">
+                    <!-- JS generated content -->
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<!-- Sortiment Numbers Modal (New) -->
+<div id="sortiment-numbers-modal" class="modal" style="z-index: 1010;">
+    <div class="modal-content" style="max-width: 800px; height: 85vh; display: flex; flex-direction: column;">
+        <div class="modal-header">
+            <h2 class="modal-title">Čísla sortimentu</h2>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-primary btn-sm" data-action="open-add-sortiment-number-modal"><i data-feather="plus"></i> Přidat</button>
+                <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div class="modal-body" id="sortiment-numbers-list" style="overflow-y: auto; padding: 20px; background-color: var(--bg-primary);">
+            <!-- JS Generated Content -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zavřít</button>
+        </div>
+    </div>
+</div>
+
+<!-- Add Sortiment Number Modal (New) -->
+<div id="add-sortiment-number-modal" class="modal" style="z-index: 1020;">
+    <div class="modal-content" style="max-width: 500px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Přidat číslo sortimentu</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="new-sortiment-code">Číslo sortimentu (6 míst)</label>
+                <input type="number" id="new-sortiment-code" placeholder="např. 123456" max="999999">
+            </div>
+            <div class="form-group">
+                <label for="new-sortiment-customer">Zákazník</label>
+                <select id="new-sortiment-customer"></select>
+            </div>
+            <div class="form-group">
+                <label for="new-sortiment-surovina">Sortiment / Výrobek</label>
+                <select id="new-sortiment-surovina"></select>
+            </div>
+            <div class="form-group">
+                <label for="new-sortiment-type">Typ balení</label>
+                <select id="new-sortiment-type">
+                    <option value="VL">Volně ložené (VL)</option>
+                    <option value="OA">Malé misky (OA)</option>
+                    <option value="RB">Rodinné balení (RB)</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-sortiment-number">Uložit</button>
+        </div>
+    </div>
+</div>

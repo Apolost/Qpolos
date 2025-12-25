@@ -1,0 +1,30 @@
+<div id="price-change-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+        <div class="modal-header">
+            <h2 class="modal-title">Nová změna ceny</h2>
+            <button class="btn-icon" data-action="close-modal"><i data-feather="x"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="price-change-customer">Zákazník</label>
+                <select id="price-change-customer"></select>
+            </div>
+            <div class="form-group">
+                <label for="price-change-surovina">Produkt / Surovina</label>
+                <select id="price-change-surovina"></select>
+            </div>
+            <div class="form-group">
+                <label for="price-change-date">Platnost od</label>
+                <input type="date" id="price-change-date">
+            </div>
+            <div class="form-group">
+                <label for="price-change-price">Nová cena (Kč/kg)</label>
+                <input type="number" id="price-change-price" step="0.01" min="0" placeholder="0.00">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" data-action="close-modal">Zrušit</button>
+            <button class="btn btn-primary" data-action="save-price-change">Uložit</button>
+        </div>
+    </div>
+</div>

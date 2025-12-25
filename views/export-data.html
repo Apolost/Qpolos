@@ -1,0 +1,46 @@
+
+<div id="view-export-data">
+    <div class="page-header-container">
+        <h1 class="page-header" style="margin-bottom: 0;">Export dat a zálohování</h1>
+    </div>
+    
+    <!-- Sekce pro PDF reporty -->
+    <div class="card">
+        <div class="card-header bg-emerald-50 border-b border-emerald-100 p-4 rounded-t-xl">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-emerald-100 rounded-lg text-emerald-600">
+                    <i data-feather="file-text" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="card-title text-emerald-900">Tiskové sestavy (PDF)</h3>
+                    <p class="text-xs text-emerald-700 m-0">Reporty pro výrobu</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-content p-6 space-y-4">
+            <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-slate-50 transition-colors">
+                <div>
+                    <h4 class="font-bold text-slate-700 text-sm">Potřeba surovin</h4>
+                    <p class="text-xs text-slate-500">Kompletní přehled masa pro výrobu</p>
+                </div>
+                <button class="btn btn-secondary btn-sm" data-action="export-raw-materials-report"><i data-feather="download"></i> PDF</button>
+            </div>
+
+            <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-slate-50 transition-colors">
+                <div>
+                    <h4 class="font-bold text-slate-700 text-sm">Přehled řízků</h4>
+                    <p class="text-xs text-slate-500">Součty pro kráječe a balení</p>
+                </div>
+                <button class="btn btn-secondary btn-sm" data-action="export-schnitzel-report"><i data-feather="download"></i> PDF</button>
+            </div>
+
+            <div class="flex items-center justify-between p-3 border rounded-lg hover:bg-slate-50 transition-colors">
+                <div>
+                    <h4 class="font-bold text-slate-700 text-sm">Přehled KFC</h4>
+                    <p class="text-xs text-slate-500">Výroba a suroviny pro KFC</p>
+                </div>
+                <button class="btn btn-secondary btn-sm" data-action="export-kfc-report"><i data-feather="download"></i> PDF</button>
+            </div>
+        </div>
+    </div>
+</div>

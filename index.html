@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="cs" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DZ Control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <!-- Add jsPDF and jsPDF-AutoTable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <!-- Add SheetJS for Excel Import -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/views.css">
+</head>
+<body>
+
+    <div id="splash-screen">
+        <div class="splash-logo">
+            <span class="logo-dz">DZ</span>
+            <span class="logo-control">Control</span>
+        </div>
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+    
+    <!-- Login Modal (Initially Hidden, shown via JS if needed) -->
+    <div id="login-modal" style="display: none;">
+        <div class="login-box">
+            <div class="splash-logo" style="font-size: 3rem; justify-content: center; margin-bottom: 30px;">
+                <span class="logo-dz">DZ</span>
+                <span class="logo-control">Control</span>
+            </div>
+            <div class="form-group">
+                <input type="password" id="login-password" placeholder="Zadejte heslo" style="text-align: center; font-size: 1.2rem;">
+            </div>
+            <button id="login-btn" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1.1rem;">Přihlásit</button>
+            <p id="login-error" style="color: var(--accent-danger); text-align: center; margin-top: 10px; display: none;">Nesprávné heslo</p>
+        </div>
+    </div>
+
+    <div id="nav-overlay"></div>
+
+    <nav id="app-nav">
+        <div>
+            <div class="nav-header">DZ Control <span id="digital-clock"></span></div>
+            <div class="nav-links">
+                <a href="#" class="nav-link active" data-view="main-page"><i data-feather="home"></i><span>Hlavní stránka</span></a>
+                <details>
+                    <summary><i data-feather="sliders"></i><span>Výroba</span><i data-feather="chevron-right" class="arrow-icon"></i></summary>
+                    <div class="submenu">
+                        <a href="#" class="nav-link" data-view="daily-plan"><span>Denní Plán</span></a>
+                        <a href="#" class="nav-link" data-view="orders"><span>Objednávky</span></a>
+                        <a href="#" class="nav-link" data-action="open-import-orders-modal"><span>Import objednávek</span></a>
+                        <a href="#" class="nav-link" data-view="calendar"><span>Kalendář akcí</span></a>
+                        <a href="#" class="nav-link" data-view="kfc"><span>KFC</span></a>
+                        <a href="#" class="nav-link" data-view="calculator"><span>Kalkulačka suroviny</span></a>
+                        <a href="#" class="nav-link" data-view="qr-code" style="display: none;"><span>QR Kód</span></a>
+                    </div>
+                </details>
+                <details>
+                    <summary><i data-feather="bar-chart-2"></i><span>Přehled výroby</span><i data-feather="chevron-right" class="arrow-icon"></i></summary>
+                    <div class="submenu">
+                         <a href="#" class="nav-link" data-view="production-overview"><span>Denní přehled</span></a>
+                         <a href="#" class="nav-link" data-view="monthly-overview"><span>Přehled Surovin</span></a>
+                         <a href="#" class="nav-link" data-view="raw-material-orders"><span>Surovina na objednávky</span></a>
+                    </div>
+                </details>
+                <details>
+                    <summary><i data-feather="archive"></i><span>Sklad materiálu</span><i data-feather="chevron-right" class="arrow-icon"></i></summary>
+                    <div class="submenu">
+                        <a href="#" class="nav-link" data-view="stock-boxes"><span>Bedny</span></a>
+                        <a href="#" class="nav-link" data-view="stock-trays"><span>Misky</span></a>
+                    </div>
+                </details>
+                 <a href="#" class="nav-link" data-view="export-data"><i data-feather="share"></i><span>Export dat</span></a>
+                <a href="#" class="nav-link" data-view="zmeny"><i data-feather="alert-triangle"></i><span>Změny</span></a>
+                <a href="#" class="nav-link" data-view="employees"><i data-feather="users"></i><span>Zaměstnanci</span></a>
+                <a href="#" class="nav-link" data-view="settings-hub"><i data-feather="settings"></i><span>Nastavení</span></a>
+                
+                <a href="#" class="nav-link" data-action="logout" style="margin-top: 20px; color: var(--accent-danger);"><i data-feather="log-out"></i><span>Odhlásit se</span></a>
+            </div>
+        </div>
+        <div class="nav-footer">
+            <div id="autosave-indicator"></div>
+            <div class="form-group" style="display: flex; gap: 10px;">
+                 <button class="btn btn-secondary" style="flex: 1;" data-action="save-data-to-file" title="Uložit data do souboru"><i data-feather="download"></i></button>
+                 <button class="btn btn-secondary" style="flex: 1;" data-action="load-data-from-file" title="Načíst data ze souboru"><i data-feather="upload"></i></button>
+            </div>
+            <div class="form-group">
+                <label for="selectedDate">Datum plánu</label>
+                <div class="date-controls">
+                    <button class="btn btn-secondary" data-action="prev-day" title="Předchozí den"><i data-feather="chevron-left"></i></button>
+                    <input type="date" id="selectedDate">
+                    <button class="btn btn-secondary" data-action="next-day" title="Následující den"><i data-feather="chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div style="display: flex; flex-direction: column; width: 100%;">
+        <header id="mobile-header">
+            <button id="menu-toggle" class="btn-icon"><i data-feather="menu"></i></button>
+            <span class="mobile-header-title">DZ Control</span>
+            <div id="info-bar" class="info-bar">
+                <!-- JS-injected content -->
+            </div>
+        </header>
+
+        <nav id="mobile-top-nav">
+            <a href="#" class="nav-link" data-view="main-page">
+                <i data-feather="home"></i>
+                <span>Domů</span>
+            </a>
+            <a href="#" class="nav-link" data-view="daily-plan">
+                <i data-feather="sliders"></i>
+                <span>Plán</span>
+            </a>
+            <a href="#" class="nav-link" data-view="production-overview">
+                <i data-feather="bar-chart-2"></i>
+                <span>Přehled</span>
+            </a>
+            <a href="#" class="nav-link" data-view="stock-boxes">
+                <i data-feather="archive"></i>
+                <span>Sklad</span>
+            </a>
+            <a href="#" class="nav-link" data-view="employees">
+                <i data-feather="users"></i>
+                <span>Lidé</span>
+            </a>
+        </nav>
+
+        <main id="app-main">
+            <!-- Content is dynamically rendered by script -->
+        </main>
+    </div>
+  
+    <div id="modals-container"></div>
+
+    <div id="toast-container"></div>
+    
+    <!-- Shortage Notifications -->
+    <div id="tray-shortage-notification" class="shortage-notification" data-action="dismiss-notification" style="display: none;">
+        <div class="notification-header">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <i data-feather="package"></i>
+                <h4 style="font-weight: bold;">Nízký stav misek!</h4>
+            </div>
+            <button class="btn-icon" data-action="dismiss-notification"><i data-feather="x"></i></button>
+        </div>
+        <ul id="tray-shortage-list" class="notification-list">
+            <!-- JS will inject list items here -->
+        </ul>
+    </div>
+
+    <div id="chicken-shortage-notification" class="shortage-notification" data-action="dismiss-notification" style="display: none;">
+         <div class="notification-header">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <i data-feather="alert-triangle"></i>
+                <h4 style="font-weight: bold;">Plán linky</h4>
+            </div>
+            <button class="btn-icon" data-action="dismiss-notification"><i data-feather="x"></i></button>
+        </div>
+        <p id="chicken-shortage-text" style="padding: 12px 16px;"></p>
+    </div>
+
+    <!-- Hidden area for printing QR codes -->
+    <div id="print-area" style="display: none;">
+        <h3 id="print-qr-title"></h3>
+        <canvas id="print-qr-canvas"></canvas>
+        <p id="print-qr-id"></p>
+    </div>
+
+    <!-- QR Code Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script type="module" src="index.tsx"></script>
+
+</body>
+</html>

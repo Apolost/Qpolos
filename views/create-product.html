@@ -1,0 +1,84 @@
+
+<div id="view-create-product">
+    <h1 class="page-header" id="create-product-header">Vytvořit nový produkt</h1>
+    <div class="card">
+        <div class="form-row">
+            <div class="form-field"><label for="new-prod-name">Název produktu</label><input type="text" id="new-prod-name"></div>
+            <div class="form-field"><label for="new-prod-customer">Zákazník</label><select id="new-prod-customer"></select></div>
+        </div>
+        
+        <!-- Sekce pro nastavení misek -->
+        <div class="form-group checkbox-group" style="background-color: var(--bg-tertiary); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+            <label>
+                <input type="checkbox" id="new-prod-order-in-trays">
+                <span>Objednávka v miskách (místo beden)</span>
+            </label>
+        </div>
+
+        <div class="form-row">
+            <div class="form-field"><label for="new-prod-surovina">Surovina</label><select id="new-prod-surovina"></select></div>
+            
+            <div class="form-field">
+                <label id="label-box-weight" for="new-prod-box-weight">Výchozí váha bedny (g)</label>
+                <input type="number" id="new-prod-box-weight">
+            </div>
+            
+            <div class="form-field" id="container-box-type">
+                <label for="new-prod-box-type">Typ bedny</label>
+                <select id="new-prod-box-type"></select>
+            </div>
+
+            <!-- Nová pole pro misky (skrytá defaultně) -->
+            <div class="form-field" id="container-tray-type" style="display: none;">
+                <label for="new-prod-tray-type">Typ misky</label>
+                <select id="new-prod-tray-type"></select>
+            </div>
+            <div class="form-field" id="container-trays-per-box">
+                <label for="new-prod-trays-per-box">Misek v bedně (ks)</label>
+                <input type="number" id="new-prod-trays-per-box" placeholder="např. 4">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-field"><label for="new-prod-marinade-name">Název marinády (nepovinné)</label><input type="text" id="new-prod-marinade-name"></div>
+            <div class="form-field"><label for="new-prod-marinade-percent">Marináda % (nepovinné)</label><input type="number" id="new-prod-marinade-percent"></div>
+            <div class="form-field"><label for="new-prod-loss-percent">Ztráta % (nepovinné)</label><input type="number" id="new-prod-loss-percent"></div>
+        </div>
+        <div class="form-group checkbox-group">
+            <label>
+                <input type="checkbox" id="new-prod-quick-entry">
+                <span>Zobrazit v Rychlém zadání</span>
+            </label>
+             <label>
+                <input type="checkbox" id="new-prod-is-other">
+                <span>Ostatní</span>
+            </label>
+        </div>
+        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 20px 0;">
+        <h3>Kalibrace</h3>
+         <div class="form-row">
+             <div class="form-field">
+                 <label for="new-prod-calibrated-surovina">Kalibrovaná surovina</label>
+                 <select id="new-prod-calibrated-surovina"></select>
+             </div>
+             <div class="form-field">
+                 <label for="new-prod-calibrated-weight">Váha (g) od-do</label>
+                 <input type="text" id="new-prod-calibrated-weight" placeholder="např. 80-100">
+             </div>
+             <button class="btn btn-secondary" id="save-caliber-btn" data-action="save-caliber" disabled><i data-feather="plus-circle"></i> Uložit kalibr</button>
+         </div>
+        <div style="text-align: right; margin-top: 20px;">
+            <button class="btn btn-secondary" id="cancel-edit-prod-btn" data-action="cancel-edit-prod" style="display: none;">Zrušit úpravu</button>
+            <button class="btn btn-primary" id="save-new-prod-btn" data-action="save-new-prod"><i data-feather="save"></i>Uložit produkt</button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><h2 class="card-title">Existující produkty</h2></div>
+        <div class="card-content">
+            <table class="data-table" id="existing-products-table">
+                <thead><tr><th>Název</th><th>Zákazník</th><th>Surovina</th><th>Balení / Misky</th><th>Stav</th><th class="actions">Akce</th></tr></thead>
+                <tbody id="existing-products-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+</div>

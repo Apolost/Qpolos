@@ -1,0 +1,27 @@
+<div id="view-calendar">
+    <div class="page-header-container">
+        <h1 class="page-header" style="margin-bottom: 0;">Kalendář akcí</h1>
+        <div>
+            <button id="prev-month-btn" class="btn btn-secondary" data-action="prev-month"><i data-feather="arrow-left"></i></button>
+            <div id="current-month-display" style="font-size: 1.2rem; font-weight: 600;"></div>
+            <button id="next-month-btn" class="btn btn-secondary" data-action="next-month"><i data-feather="arrow-right"></i></button>
+            <button class="btn btn-secondary" data-action="open-export-actions-modal"><i data-feather="share"></i>Export</button>
+            <button id="plan-action-btn" class="btn btn-primary" data-action="plan-action"><i data-feather="plus"></i>Přidat akci</button>
+        </div>
+    </div>
+    <div class="calendar-layout-grid">
+        <div class="card calendar-main-card">
+             <div class="calendar-grid" id="calendar-grid">
+                <!-- JS generated content -->
+             </div>
+        </div>
+        <div class="card calendar-sidebar-card">
+            <div class="card-header" style="padding-bottom: 10px; margin-bottom: 10px;">
+                <h2 class="card-title">Seznam akcí</h2>
+            </div>
+            <div class="card-content" id="actions-list-container" style="padding: 0;">
+                <!-- JS generated list -->
+            </div>
+        </div>
+    </div>
+</div>
